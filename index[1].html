@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HİJYONET | Profesyonel İlaçlama & Temizlik Hizmetleri</title>
+  <meta name="description" content="HİJYONET; İstanbul genelinde ev, iş yeri, restoran, site, bahçe, depo ve açık alanlar için profesyonel ilaçlama ve çatı-bodrum temizlik hizmetleri sunar.">
+
+  <!-- Google Fonts & Tailwind CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              navy: '#062a20',
+              darkNavy: '#031a14',
+              surface: '#0b3b2d',
+              emerald: '#18a66f',
+              emeraldDark: '#087a52',
+              teal: '#0f8f78',
+              accent: '#d7a83e', gold: '#d7a83e', goldLight: '#f2cf6b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .hero-glow {
+      background: radial-gradient(circle at 80% 30%, rgba(16, 185, 129, 0.20) 0%, rgba(13, 148, 136, 0.10) 40%, rgba(11, 25, 44, 0) 75%);
+    }
+    .glass-box {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .compare-range {
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    .compare-range::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 48px;
+      height: 48px;
+      cursor: ew-resize;
+    }
+
+    :root {
+      --hj-green: #062a20;
+      --hj-green-2: #0a4a37;
+      --hj-green-3: #18a66f;
+      --hj-gold: #d7a83e;
+      --hj-gold-2: #f2cf6b;
+      --hj-cream: #fbfaf4;
+    }
+    body { overflow-x:hidden; }
+    .hj-gradient-text {
+      background: linear-gradient(90deg, #f2cf6b 0%, #d7a83e 42%, #ffffff 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hj-hero {
+      background:
+        radial-gradient(circle at 78% 22%, rgba(215,168,62,.20), transparent 30%),
+        radial-gradient(circle at 15% 80%, rgba(24,166,111,.16), transparent 32%),
+        linear-gradient(135deg, #031a14 0%, #062a20 52%, #0a3f30 100%);
+    }
+    .hj-orb { position:absolute; border-radius:9999px; filter:blur(2px); pointer-events:none; }
+    .hj-orb.one { width:320px;height:320px;right:-90px;top:60px;background:rgba(215,168,62,.10);animation:hjFloat 9s ease-in-out infinite; }
+    .hj-orb.two { width:220px;height:220px;left:-80px;bottom:-50px;background:rgba(24,166,111,.12);animation:hjFloat 11s ease-in-out infinite reverse; }
+    @keyframes hjFloat { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(0,-18px,0)} }
+    .hj-pulse { animation:hjPulse 2.2s ease-in-out infinite; }
+    @keyframes hjPulse { 0%,100%{box-shadow:0 0 0 0 rgba(215,168,62,.28)} 50%{box-shadow:0 0 0 12px rgba(215,168,62,0)} }
+    .hj-card { transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+    .hj-card:hover { transform:translateY(-8px); box-shadow:0 24px 55px rgba(6,42,32,.13); border-color:rgba(215,168,62,.55); }
+    .hj-shine { position:relative; overflow:hidden; }
+    .hj-shine:after { content:""; position:absolute; inset:-100% 0 auto -60%; width:35%; height:300%; transform:rotate(22deg); background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent); animation:hjShine 5.5s ease-in-out infinite; }
+    @keyframes hjShine { 0%,55%{left:-70%} 75%,100%{left:140%} }
+    .hj-badge { border:1px solid rgba(215,168,62,.45); background:rgba(215,168,62,.10); color:#f2cf6b; }
+    .hj-glass-dark { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13); backdrop-filter:blur(14px); }
+    .hj-gold-line { height:3px; width:72px; border-radius:999px; background:linear-gradient(90deg,#d7a83e,#f2cf6b); }
+    .hj-section-title { letter-spacing:-.035em; }
+    .hj-number { font-variant-numeric:tabular-nums; }
+    .hj-floating-wa { position:fixed; right:22px; bottom:22px; z-index:60; }
+    @media (max-width:640px) {
+      .hj-floating-wa { right:14px; bottom:14px; }
+      .hj-floating-wa span { display:none; }
+    }
+
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans selection:bg-emerald-500 selection:text-white">
+
+  <!-- 1. ÜST BİLGİ & DUYURU ÇUBUĞU -->
+  <div class="bg-brand-darkNavy text-white text-xs sm:text-sm py-2.5 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-bold bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> 7/24 Randevu & Acil Keşif
+        </span>
+        <span class="hidden md:inline text-slate-600">|</span>
+        <span class="hidden md:inline text-slate-300 font-medium">T.C. Sağlık Bakanlığı Ruhsatlı Biyosidal Çözümler</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="tel:05389898659" class="flex items-center gap-1.5 text-white hover:text-emerald-400 font-bold tracking-wide transition-colors">
+          <i data-lucide="phone-call" class="w-4 h-4 text-emerald-400"></i>
+          0538 989 86 59
+        </a>
+        <a href="mailto:hijyonet@gmail.com" class="hidden sm:flex items-center gap-1.5 text-slate-300 hover:text-emerald-400 transition-colors">
+          <i data-lucide="mail" class="w-4 h-4 text-emerald-400"></i>
+          hijyonet@gmail.com
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ANA GEZİNME (NAVBAR) -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-emeraldDark to-emerald-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 group-hover:scale-105 transition-transform duration-200">
+          <i data-lucide="shield-check" class="w-7 h-7"></i>
+        </div>
+        <div>
+          <span class="text-2xl font-black tracking-tight text-brand-navy block leading-none">HİJYO<span class="text-emerald-600">NET</span></span>
+          <span class="text-[10px] uppercase font-extrabold tracking-widest text-slate-500 block mt-1">İlaçlama & Temizlik Hizmetleri</span>
+        </div>
+      </a>
+
+      <!-- Menü -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-bold text-slate-600">
+        <a href="#guvenlik-protokolu" class="text-emerald-700 hover:text-emerald-600 transition-colors flex items-center gap-1.5 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200/60">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-600"></i> 24 Saat Güvenlik Protokolü
+        </a>
+        <a href="#hizmetler" class="hover:text-emerald-600 transition-colors">Hizmetlerimiz</a>
+        <a href="#karsilastirma" class="hover:text-emerald-600 transition-colors">Öncesi / Sonrası</a>
+        <a href="#fiyat-sihirbazi" class="hover:text-emerald-600 transition-colors">Fiyat Hesapla</a>
+        <a href="#sss" class="hover:text-emerald-600 transition-colors">Sıkça Sorulanlar</a>
+      </nav>
+
+      <!-- Aksiyon Butonları -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="https://wa.me/905389898659" target="_blank" class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 px-4 py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm">
+          <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i> WhatsApp
+        </a>
+        <a href="tel:05389898659" class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-md shadow-emerald-600/25">
+          <i data-lucide="phone" class="w-4 h-4"></i> 0538 989 86 59
+        </a>
+      </div>
+
+      <!-- Mobil Menü Aç/Kapat Butonu -->
+      <button id="mobileMenuToggle" class="lg:hidden text-slate-700 p-2 rounded-lg hover:bg-slate-100">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobil Açılır Menü -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-5 space-y-3">
+      <a href="#guvenlik-protokolu" class="block text-emerald-700 font-bold py-1.5">24 Saat Güvenlik Protokolü</a>
+      <a href="#hizmetler" class="block text-slate-700 font-semibold py-1.5">Hizmetlerimiz</a>
+      <a href="#karsilastirma" class="block text-slate-700 font-semibold py-1.5">Öncesi / Sonrası</a>
+      <a href="#fiyat-sihirbazi" class="block text-slate-700 font-semibold py-1.5">Fiyat Hesapla</a>
+      <a href="#sss" class="block text-slate-700 font-semibold py-1.5">Sıkça Sorulanlar</a>
+      <div class="pt-3 flex flex-col gap-2">
+        <a href="tel:05389898659" class="w-full text-center py-3 bg-brand-navy text-white rounded-xl font-bold text-sm">0538 989 86 59 Hemen Ara</a>
+        <a href="https://wa.me/905389898659" target="_blank" class="w-full text-center py-3 bg-emerald-600 text-white rounded-xl font-bold text-sm">WhatsApp Randevu</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. YENİ CANLI HERO -->
+  <section class="relative hj-hero text-white overflow-hidden py-14 lg:py-20 border-b border-white/10">
+    <div class="hj-orb one"></div><div class="hj-orb two"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full hj-badge text-xs font-extrabold uppercase tracking-wider mb-5">
+            <span class="w-2 h-2 rounded-full bg-amber-300 hj-pulse"></span>
+            İstanbul genelinde profesyonel hizmet
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-[1.02]">
+            Haşereye karşı
+            <span class="hj-gradient-text">profesyonel</span>
+            çözüm.
+          </h1>
+
+          <p class="mt-6 text-slate-200 text-base sm:text-lg lg:text-xl max-w-2xl leading-relaxed">
+            Ev, iş yeri, restoran, site, bahçe, depo ve açık alanlarda ihtiyaca özel
+            <strong class="text-white">ilaçlama ve temizlik hizmetleri</strong>.
+            Hızlı iletişim, planlı uygulama ve uygulama sonrası bilgilendirme.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="https://wa.me/905389898659?text=Merhaba%20H%C4%B0JYONET%2C%20ila%C3%A7lama%20hizmeti%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank"
+               class="hj-shine inline-flex items-center gap-2 bg-[#d7a83e] hover:bg-[#f2cf6b] text-[#062a20] px-6 py-3.5 rounded-2xl font-black shadow-xl transition-all active:scale-95">
+              <i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp'tan Teklif Al
+            </a>
+            <a href="tel:05389898659"
+               class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white px-6 py-3.5 rounded-2xl font-bold backdrop-blur transition-all">
+              <i data-lucide="phone-call" class="w-5 h-5 text-[#f2cf6b]"></i> 0538 989 86 59
+            </a>
+          </div>
+
+          <div class="mt-9 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl">
+            <div class="hj-glass-dark rounded-2xl p-3.5">
+              <i data-lucide="map-pin" class="w-5 h-5 text-[#f2cf6b] mb-2"></i>
+              <div class="text-xs font-bold">İstanbul Geneli</div>
+            </div>
+            <div class="hj-glass-dark rounded-2xl p-3.5">
+              <i data-lucide="users" class="w-5 h-5 text-[#f2cf6b] mb-2"></i>
+              <div class="text-xs font-bold">Uzman Ekip</div>
+            </div>
+            <div class="hj-glass-dark rounded-2xl p-3.5">
+              <i data-lucide="leaf" class="w-5 h-5 text-[#f2cf6b] mb-2"></i>
+              <div class="text-xs font-bold">Duyarlı Uygulama</div>
+            </div>
+            <div class="hj-glass-dark rounded-2xl p-3.5">
+              <i data-lucide="headphones" class="w-5 h-5 text-[#f2cf6b] mb-2"></i>
+              <div class="text-xs font-bold">Hızlı İletişim</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="relative rounded-[2rem] p-2 bg-gradient-to-br from-[#f2cf6b]/70 via-white/15 to-[#18a66f]/40 shadow-2xl">
+            <div class="relative overflow-hidden rounded-[1.7rem] min-h-[360px] sm:min-h-[440px]"
+                 style="background:
+                 linear-gradient(180deg,rgba(3,26,20,.02),rgba(3,26,20,.55)),
+                 url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=85') center/cover;">
+              <div class="absolute inset-x-5 top-5 flex justify-between items-start">
+                <span class="bg-white/90 text-[#062a20] px-3 py-1.5 rounded-full text-xs font-black shadow">HİJYONET</span>
+                <span class="bg-[#062a20]/75 text-[#f2cf6b] px-3 py-1.5 rounded-full text-xs font-black backdrop-blur">Profesyonel Uygulama</span>
+              </div>
+              <div class="absolute inset-x-5 bottom-5">
+                <div class="bg-[#062a20]/80 backdrop-blur-md border border-white/15 rounded-2xl p-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-[#d7a83e] text-[#062a20] flex items-center justify-center">
+                      <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                      <div class="font-black text-white">Doğru tespit + doğru uygulama</div>
+                      <div class="text-xs text-slate-300 mt-1">Hizmet ihtiyacınıza göre planlanır.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 overflow-hidden">
+        <div class="flex gap-3 min-w-max animate-[marquee_22s_linear_infinite]">
+          <span class="px-4 py-2 rounded-full bg-white/8 border border-white/10 text-sm font-bold">🦟 Sivrisinek</span>
+          <span class="px-4 py-2 rounded-full bg-white/8 border border-white/10 text-sm font-bold">🪳 Hamam Böceği</span>
+          <span class="px-4 py-2 rounded-full bg-white/8 border border-white/10 text-sm font-bold">🐭 Fare</span>
+          <span class="px-4 py-2 rounded-full bg-white/8 border border-white/10 text-sm font-bold">🕷️ Kene</span>
+          <span class="px-4 py-2 rounded-full bg-white/8 border border-white/10 text-sm font-bold">🐜 Karınca</span>
+          <span class="px-4 py-2 rounded-full bg-white/8 border border-white/10 text-sm font-bold">🪲 Pire</span>
+          <span class="px-4 py-2 rounded-full bg-white/8 border border-white/10 text-sm font-bold">🐜 Termit</span>
+          <span class="px-4 py-2 rounded-full bg-white/8 border border-white/10 text-sm font-bold">🪰 Karasinek</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes marquee { from {transform:translateX(0)} to {transform:translateX(-45%)} }
+  </style>
+
+  <!-- 4. SAĞLIK, ŞEFFAFLIK & 24 SAAT GÜVENLİK PROTOKOLÜ BÖLÜMÜ -->
+  <section id="guvenlik-protokolu" class="py-16 bg-gradient-to-b from-white to-emerald-50/50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Ana Açıklama Kutusu -->
+      <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-emerald-100 relative overflow-hidden">
+        <div class="max-w-3xl mx-auto text-center space-y-4 mb-12">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-wide">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i> Şeffaf & Sorumlu Hizmet İlkesi
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-black text-brand-navy">
+            İçiniz Tamamen Rahat Olsun: İlaçlama sürecinde güvenlik ve doğru uygulama
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            HİJYONET olarak merdiven altı, tarım ilacı veya zehirli kimyasalları <strong>kullanılmaması gereken ürünlerden kaçınıyoruz</strong>. Tüm ürünlerimiz T.C. Sağlık Bakanlığı ve Dünya Sağlık Örgütü (WHO) onaylı, biyosidal lisanslıdır. İnsanlar ve evcil hayvanlar için ürün etiketindeki kullanım ve güvenlik talimatlarına uygun şekilde uygulanır.
+          </p>
+        </div>
+
+        <!-- 24 Saat Kuralı Özel Vurgu Alanı (Banner) -->
+        <div class="mb-12 bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 border-2 border-emerald-500/30 rounded-2xl p-6 sm:p-8">
+          <div class="flex flex-col md:flex-row items-center gap-6">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-emerald-600/30">
+              <i data-lucide="clock-alert" class="w-8 h-8"></i>
+            </div>
+            <div class="space-y-2 text-center md:text-left">
+              <h3 class="text-lg sm:text-xl font-black text-brand-navy flex items-center justify-center md:justify-start gap-2">
+                Neden Kokusuz İlaçta Bile 24 Saat Kuralı Uyguluyoruz?
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Piyasada bazı firmalar <em>"hiç evden çıkmanıza gerek yok"</em> diyerek güvenlik tedbirlerini basite indirgeyebilir. Biz HİJYONET olarak müşterilerimize <strong>en dürüst ve bilimsel yaklaşımı</strong> sunuyoruz: İlaçlarımız kokusuz ve insan sağlığına zararsız olsa bile; mikro kapsüllerin yüzeylere tam oturması, havadaki partiküllerin çökmesi ve en ufak bir astım/alerji hassasiyetinin dahi önüne geçmek için ev gibi kapalı alanlarda <strong>24 saat ortamda bulunulmamasını ve ardından kapsamlı havalandırma yapılmasını</strong> şart koşuyoruz. Güvenliğiniz, bizim en büyük önceliğimizdir.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Adımlı Güvenlik ve Dönüş Süreci -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Adım 1 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-emerald-300 transition-all">
+            <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4 font-black">
+              1
+            </div>
+            <h4 class="font-bold text-brand-navy text-base mb-2">Sağlık Bakanlığı Onayı</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Kullandığımız tüm ürünler T.C. Sağlık Bakanlığı onaylı biyosidal ilaçlardır. Omurgasız böceklerin sinir sistemini hedefler; memelilerde zehirlenme yapmaz.
+            </p>
+          </div>
+
+          <!-- Adım 2 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-emerald-300 transition-all">
+            <div class="w-11 h-11 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center mb-4 font-black">
+              2
+            </div>
+            <h4 class="font-bold text-brand-navy text-base mb-2">24 Saat Güvenlik Tedbiri</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              İlaçlama sonrası ilacın maksimum etkiyle böcek yuvalarına işlemesi ve solunum yollarını korumak için 24 saat alanda bulunulmaması tavsiye edilir.
+            </p>
+          </div>
+
+          <!-- Adım 3 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-emerald-300 transition-all">
+            <div class="w-11 h-11 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-4 font-black">
+              3
+            </div>
+            <h4 class="font-bold text-brand-navy text-base mb-2">Kapsamlı Havalandırma</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              24 saatin ardından eve ilk girildiğinde kapı ve pencereler en az 1 saat karşılıklı açılarak ortamdaki hava tamamen tazelenir.
+            </p>
+          </div>
+
+          <!-- Adım 4 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-emerald-300 transition-all">
+            <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4 font-black">
+              4
+            </div>
+            <h4 class="font-bold text-brand-navy text-base mb-2">Güvenle Rutine Dönüş</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Yemek masası ve tezgah gibi sık temas edilen yüzeyler nemli sabunlu bezle silindikten sonra evcil hayvanlarınız ve çocuklarınızla güvenle oturabilirsiniz.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-slate-100 text-center">
+          <p class="text-xs sm:text-sm text-slate-500 font-medium">
+            🛡️ Uygulama sonrasında resmi <strong>Biyosidal Ürün Uygulama ve Denetim Belgesi</strong> kaşelenerek tarafınıza teslim edilir.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ÖNCESİ / SONRASI GERÇEKÇİ GEÇİŞ SÜRGÜSÜ -->
+  <section id="karsilastirma" class="py-20 bg-slate-100 border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-emerald-600 font-extrabold tracking-wider uppercase text-xs">Gözle Görülür Dönüşüm</span>
+        <h2 class="text-3xl font-extrabold text-brand-navy mt-1">Öncesi ve Sonrası Sonuçlarımız</h2>
+        <p class="text-slate-600 text-sm mt-2">Ortadaki sürgüyü sağa ve sola kaydırarak HİJYONET'in profesyonel temizlik ve haşere arındırma farkını inceleyin.</p>
+      </div>
+
+      <!-- Karşılaştırma Kutusu -->
+      <div class="relative w-full aspect-[16/9] max-h-[500px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white select-none bg-slate-900">
+        <!-- Alt Katman: SONRASI (Tertemiz, Paslanmaz Parlak Mutfak) -->
+        <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80" alt="Hijyonet Sonrası Temiz Mutfak" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute top-4 right-4 bg-emerald-600 text-white text-xs font-black px-3.5 py-1.5 rounded-lg shadow-lg tracking-wide z-0">
+          ✓ SONRASI: HİJYONET İLE TAM HİJYEN
+        </div>
+
+        <!-- Üst Katman: ÖNCESİ (Kırpılan Katman - Kirli ve Sorunlu Alan) -->
+        <div id="beforeContainer" class="absolute inset-0 w-1/2 overflow-hidden border-r-4 border-white shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=1400&q=80" alt="İlaçlama Öncesi İstila ve Kir" class="absolute inset-0 w-[1000px] max-w-none h-full object-cover filter contrast-125 sepia-[0.35]">
+          <div class="absolute top-4 left-4 bg-slate-900/90 text-amber-300 text-xs font-black px-3.5 py-1.5 rounded-lg shadow-lg tracking-wide">
+            ⚠ ÖNCESİ: İSTİLA VE KİR
+          </div>
+        </div>
+
+        <!-- Görünmez Sürgü Inputu -->
+        <input type="range" id="compareSlider" min="0" max="100" value="50" class="compare-range absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20">
+
+        <!-- Tutamaç İkonu -->
+        <div id="sliderHandle" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-2xl flex items-center justify-center pointer-events-none z-10 text-emerald-600 font-bold border-2 border-slate-200">
+          <i data-lucide="chevrons-left-right" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <div class="mt-4 flex justify-between text-xs text-slate-500 font-semibold px-2">
+        <span>⬅️ Öncesini görmek için sağa kaydırın</span>
+        <span>Sonrasını görmek için sola kaydırın ➡️</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. HİZMETLERİMİZ BÖLÜMÜ -->
+  <section id="hizmetler" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-emerald-600 font-extrabold tracking-wider uppercase text-xs">Kapsamlı Çözümlerimiz</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-2">HİJYONET Hizmet Yelpazesi</h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-3">Her mekâna özel donanım, Sağlık Bakanlığı onaylı biyosidal ürünler ve uzman kadromuzla yanınızdayız.</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+        <div class="rounded-2xl bg-[#062a20] text-white p-4"><div class="text-2xl font-black">01</div><div class="text-xs text-slate-300 mt-1">Keşif & Tespit</div></div>
+        <div class="rounded-2xl bg-[#0a4a37] text-white p-4"><div class="text-2xl font-black">02</div><div class="text-xs text-slate-300 mt-1">Yöntem Planı</div></div>
+        <div class="rounded-2xl bg-[#d7a83e] text-[#062a20] p-4"><div class="text-2xl font-black">03</div><div class="text-xs font-bold mt-1">Profesyonel Uygulama</div></div>
+        <div class="rounded-2xl bg-slate-100 text-[#062a20] p-4"><div class="text-2xl font-black">04</div><div class="text-xs font-bold mt-1">Takip & Bilgilendirme</div></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Hizmet 1 -->
+        <div class="hj-card bg-white border border-slate-200/80 rounded-3xl p-7 hover:shadow-xl transition-all group relative overflow-hidden">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="utensils" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-navy mb-3">Restoran & Dönerci İlaçlama</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            Mutfak, tezgah altları ve gıda depolarında kalıntı bırakmayan Alman menşeili jel ve ULV sisleme uygulaması. Sağlık denetimlerine tam uygun resmi dosyalama.
+          </p>
+          <ul class="text-xs text-slate-500 space-y-2">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Mutfağı kapatmadan jel uygulaması</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Kalorifer böceği & hamamböceği kontrolü</li>
+          </ul>
+        </div>
+
+        <!-- Hizmet 2 -->
+        <div class="hj-card bg-white border border-slate-200/80 rounded-3xl p-7 hover:shadow-xl transition-all group relative overflow-hidden">
+          <div class="w-14 h-14 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="trash-2" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-navy mb-3">Genel Temizlik (Çatı, Bodrum & Depo)</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            Zamanla biriken atıklar, toz, güvercin pisliği, rutubet ve zararlı yuvalarının profesyonelce boşaltılması, yıkanması ve koruyucu dezenfeksiyonu.
+          </p>
+          <ul class="text-xs text-slate-500 space-y-2">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Kaba atık tahliyesi & yüzey arındırma</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Temizlik sonrası mikrop ve koku kurutma</li>
+          </ul>
+        </div>
+
+        <!-- Hizmet 3 -->
+        <div class="hj-card bg-white border border-slate-200/80 rounded-3xl p-7 hover:shadow-xl transition-all group relative overflow-hidden">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="bug" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-brand-navy mb-3">Tahtakurusu & Pire İlaçlama</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            Yatak altları, ahşap aralıkları, baza ve inşaat kalıplarına yuvalanan tahtakurularına karşı yüksek basınçlı ve yumurta çatlatıcı özel kombine sistem.
+          </p>
+          <ul class="text-xs text-slate-500 space-y-2">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Yumurtalara kadar nüfuz eden formül</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Uygun yöntem ve takip planı</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SIKÇA SORULAN SORULAR (SSS) -->
+  <section id="sss" class="py-16 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <span class="text-emerald-600 font-extrabold tracking-wider uppercase text-xs">Merak Edilenler</span>
+        <h2 class="text-3xl font-extrabold text-brand-navy mt-1">Sıkça Sorulan Sorular</h2>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Soru 1: 24 Saat Kuralı -->
+        <div class="border border-slate-200 rounded-2xl p-5 bg-white shadow-sm">
+          <h4 class="font-bold text-brand-navy text-sm sm:text-base flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-4 h-4 text-emerald-600"></i> İlaçlar kokusuzsa neden 24 saat evde kalmamam gerekiyor?
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 pl-6 leading-relaxed">
+            İlaçlarımız Sağlık Bakanlığı onaylıdır ve insan sağlığına ölümcül bir zararı yoktur. Ancak ilaçlama anında havaya dağılan mikroskobik aerosol damlacıklarının yüzeylere tam tutunup kuruması gerekir. Çocuklar, yaşlılar ve evcil hayvanların en ufak bir solunum hassasiyeti yaşamaması adına kapalı yaşam alanlarında 24 saat güvenlik kuralını ve ardından 1 saatlik bol havalandırmayı şart koşuyoruz. Güvenlikte asla taviz vermeyiz.
+          </p>
+        </div>
+
+        <!-- Soru 2 -->
+        <div class="border border-slate-200 rounded-2xl p-5 bg-white shadow-sm">
+          <h4 class="font-bold text-brand-navy text-sm sm:text-base flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-4 h-4 text-emerald-600"></i> 24 saatin ardından eve girdiğimizde ne yapmalıyız?
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 pl-6 leading-relaxed">
+            Eve döndüğünüzde öncelikle tüm pencere ve kapıları açarak en az 45-60 dakika boyunca cereyan yaptırarak havalandırınız. Yemek hazırlanan tezgah ve yemek masası gibi yüzeyleri hafif nemli ve sabunlu bir bezle silebilirsiniz. Ancak ilacın koruyucu bariyer özelliğini koruması için süpürgelik diplerini 1 hafta boyunca ıslak paspasla silmeyiniz.
+          </p>
+        </div>
+
+        <!-- Soru 3 -->
+        <div class="border border-slate-200 rounded-2xl p-5 bg-white shadow-sm">
+          <h4 class="font-bold text-brand-navy text-sm sm:text-base flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-4 h-4 text-emerald-600"></i> İlaçlar evcil hayvanlarımıza (kedi, köpek vb.) zarar verir mi?
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 pl-6 leading-relaxed">
+            Kullandığımız biyosidal formülasyonlar Dünya Sağlık Örgütü (WHO) onaylı olup yalnızca böcek ve haşerelerin sinir/sindirim sistemine etkilidir. 24 saatlik bekleme ve havalandırma süresine uyulduğunda patili dostlarımız için kesinlikle hiçbir sağlık riski kalmaz.
+          </p>
+        </div>
+
+        <!-- Soru 4 -->
+        <div class="border border-slate-200 rounded-2xl p-5 bg-white shadow-sm">
+          <h4 class="font-bold text-brand-navy text-sm sm:text-base flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-4 h-4 text-emerald-600"></i> Resmi kurumsal fatura ve biyosidal uygulama belgesi veriyor musunuz?
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 pl-6 leading-relaxed">
+            Evet; işletmeler, restoranlar, depolar ve apartman yönetimleri için belediye ve sağlık teftişlerinde geçerli resmi T.C. Sağlık Bakanlığı formatında Biyosidal Ürün Uygulama Belgesi eksiksiz düzenlenmektedir.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. HIZLI İLETİŞİM VE CTA ŞERİDİ -->
+  <section class="py-16 bg-gradient-to-r from-emerald-600 to-teal-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-black">Hemen Güvenli ve Garantili Hijyene Kavuşun</h2>
+        <p class="text-emerald-100 text-sm mt-1">Günün her saatinde randevu, keşif ve fiyat teklifi için bizi arayabilirsiniz.</p>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <a href="tel:05389898659" class="bg-white text-emerald-800 hover:bg-slate-100 px-6 py-3.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg transition-transform active:scale-95">
+          <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i> 0538 989 86 59
+        </a>
+        <a href="https://wa.me/905389898659" target="_blank" class="bg-brand-navy hover:bg-slate-900 text-white px-6 py-3.5 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg transition-transform active:scale-95">
+          <i data-lucide="message-square" class="w-4 h-4 text-emerald-400"></i> WhatsApp'tan Yazın
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. ALT BİLGİ (FOOTER) -->
+  <footer class="bg-brand-navy text-slate-400 py-12 text-sm border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="md:col-span-2 space-y-4">
+        <div class="flex items-center gap-2 text-white">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center text-white font-black text-base">H</div>
+          <span class="text-lg font-black tracking-tight">HİJYONET</span>
+        </div>
+        <p class="text-xs text-slate-400 max-w-md leading-relaxed">
+          HİJYONET İlaçlama ve Genel Temizlik Hizmetleri. Yaşam alanlarınızda hijyen standartlarını zirveye taşır. İnsan sağlığına zararsız, 24 saat güvenlik protokolüyle garantili profesyonel uygulamalar.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white text-xs font-black uppercase tracking-wider mb-4">Hızlı Menü</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="#guvenlik-protokolu" class="hover:text-emerald-400 transition-colors">24 Saat Güvenlik Kuralı</a></li>
+          <li><a href="#hizmetler" class="hover:text-emerald-400 transition-colors">Hizmetlerimiz</a></li>
+          <li><a href="#karsilastirma" class="hover:text-emerald-400 transition-colors">Öncesi / Sonrası</a></li>
+          <li><a href="#sss" class="hover:text-emerald-400 transition-colors">Sıkça Sorulanlar</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white text-xs font-black uppercase tracking-wider mb-4">İletişim Bilgileri</h4>
+        <ul class="space-y-2.5 text-xs">
+          <li class="flex items-center gap-2 text-slate-300">
+            <i data-lucide="phone" class="w-4 h-4 text-emerald-400"></i>
+            <a href="tel:05389898659" class="hover:text-white font-bold">0538 989 86 59</a>
+          </li>
+          <li class="flex items-center gap-2 text-slate-300">
+            <i data-lucide="mail" class="w-4 h-4 text-emerald-400"></i>
+            <a href="mailto:hijyonet@gmail.com" class="hover:text-white">hijyonet@gmail.com</a>
+          </li>
+          <li class="flex items-center gap-2 text-slate-300">
+            <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
+            <span>7/24 Kesintisiz Hizmet Ağı</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-8 mt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+      &copy; 2026 HİJYONET İlaçlama ve Genel Temizlik Hizmetleri. Tüm Hakları Saklıdır.
+    </div>
+  </footer>
+
+
+  <!-- Sabit WhatsApp -->
+  <a href="https://wa.me/905389898659?text=Merhaba%20H%C4%B0JYONET%2C%20hizmetleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
+     target="_blank"
+     class="hj-floating-wa inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-4 py-3.5 rounded-full shadow-2xl font-black text-sm transition-transform hover:scale-105"
+     aria-label="WhatsApp'tan HİJYONET'e ulaşın">
+    <i data-lucide="message-circle" class="w-6 h-6"></i><span>WhatsApp'tan Yaz</span>
+  </a>
+
+  <!-- 10. İNTERAKTİF SCRİPTLER -->
+  <script>
+    // İkonları yükle
+    lucide.createIcons();
+
+    // Mobil Menü
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Fiyat Sihirbazı (10 m² = 1.500 TL -> m² başı 150 TL)
+    const sqmRange = document.getElementById('sqmRange');
+    const sqmValueDisplay = document.getElementById('sqmValueDisplay');
+    const spaceType = document.getElementById('spaceType');
+    const serviceType = document.getElementById('serviceType');
+    const totalPriceDisplay = document.getElementById('totalPrice');
+
+    function calculatePrice() {
+      const sqm = parseInt(sqmRange.value);
+      const spaceMultiplier = parseFloat(spaceType.value);
+      const serviceExtra = parseInt(serviceType.value);
+
+      sqmValueDisplay.innerText = sqm + " m²";
+
+      // 10 m² = 1.500 TL mantığı (m² başı 150 TL)
+      let basePrice = sqm * 150;
+      let calculated = (basePrice * spaceMultiplier) + serviceExtra;
+
+      // Taban servis fiyatı 1.500 TL
+      if (calculated < 1500) calculated = 1500;
+      calculated = Math.round(calculated / 50) * 50;
+
+      totalPriceDisplay.innerText = calculated.toLocaleString('tr-TR');
+      return calculated;
+    }
+
+    sqmRange.addEventListener('input', calculatePrice);
+    spaceType.addEventListener('change', calculatePrice);
+    serviceType.addEventListener('change', calculatePrice);
+
+    // WhatsApp'a Otomatik Detaylı Mesaj Gönderimi
+    function sendToWhatsApp() {
+      const price = calculatePrice();
+      const sqm = sqmRange.value;
+      const spaceName = spaceType.options[spaceType.selectedIndex].text;
+      const serviceName = serviceType.options[serviceType.selectedIndex].text;
+
+      const message = `Merhaba HİJYONET, web sitenizden ön fiyat teklifi hesapladım:%0A%0A` +
+                      `📍 *Mekân Türü:* ${spaceName}%0A` +
+                      `📐 *Alan Ölçüsü:* ${sqm} m²%0A` +
+                      `🎯 *Hizmet:* ${serviceName}%0A` +
+                      `💰 *Hesaplanan Ön Tutar:* ${price.toLocaleString('tr-TR')} TL%0A%0A` +
+                      `24 saatlik güvenlik ve havalandırma protokolünüze uygun olarak randevu oluşturmak istiyorum.`;
+
+      window.open(`https://wa.me/905389898659?text=${message}`, '_blank');
+    }
+
+    // Öncesi / Sonrası Sürgü Kontrolü
+    const compareSlider = document.getElementById('compareSlider');
+    const beforeContainer = document.getElementById('beforeContainer');
+    const sliderHandle = document.getElementById('sliderHandle');
+
+    compareSlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      beforeContainer.style.width = `${val}%`;
+      sliderHandle.style.left = `${val}%`;
+    });
+  </script>
+</body>
+</html>
