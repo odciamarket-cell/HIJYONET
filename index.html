@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HİJYONET | Profesyonel İlaçlama ve Hijyen Çözümleri</title>
-  <meta name="description" content="HİJYONET, İstanbul ve çevre illerde profesyonel ilaçlama, haşere kontrolü, dezenfeksiyon ve hijyen çözümleri sunar.">
+  <title>HİJYONET | 20 Yılı Aşkın Güvenle Profesyonel İlaçlama ve Dezenfeksiyon</title>
+  <meta name="description" content="HİJYONET, 20 yılı aşkın sektörel deneyimiyle İstanbul ve 9 çevre ilde kurumsal haşere kontrolü, kokusuz jel/sıvı ilaçlama ve EK-1 belgeli dezenfeksiyon çözümleri sunar.">
   
   <!-- Google Fonts: Fraunces & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons (Kritik: İkonların bozulmaması için) -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <script>
@@ -26,18 +26,23 @@
           },
           colors: {
             hijyon: {
-              forest: '#063C2F',
-              deep: '#02261D',
+              night: '#011913',
+              deep: '#03261D',
+              forest: '#064E3B',
               emerald: '#059669',
               bright: '#10B981',
-              gold: '#D7A83E',
-              goldLight: '#E8B448',
-              herbal: '#DDEEDB',
-              herbalText: '#154334',
-              brown: '#C8A27A',
-              surface: '#F7FAF7',
-              white: '#FFFFFF'
+              neon: '#00E599',
+              gold: '#F59E0B',
+              goldLight: '#FBBF24',
+              surface: '#F4FBF7',
+              cardBg: '#FFFFFF',
+              borderLight: '#E2EFE9'
             }
+          },
+          boxShadow: {
+            'glow-emerald': '0 0 35px -5px rgba(16, 185, 129, 0.3)',
+            'glow-gold': '0 0 30px -5px rgba(245, 158, 11, 0.35)',
+            'card-elevated': '0 20px 40px -15px rgba(3, 38, 29, 0.08)'
           }
         }
       }
@@ -47,33 +52,43 @@
   <style>
     * { box-sizing: border-box; }
     html, body { max-width: 100%; overflow-x: hidden; }
-    body { background-color: #F7FAF7; color: #15362D; }
+    body { background-color: #F8FCFA; color: #082F24; }
 
-    /* Buton Shimmer Efekti */
-    .btn-shimmer { position: relative; overflow: hidden; }
-    .btn-shimmer::after {
-      content: ""; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-      transform: rotate(25deg); animation: shimmer 4s ease-in-out infinite;
+    /* Buton Canlı Parlama Efekti */
+    .btn-glow {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    @keyframes shimmer {
-      0%, 65% { left: -70%; }
-      85%, 100% { left: 140%; }
+    .btn-glow::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+      transform: rotate(25deg);
+      animation: buttonSweep 3.5s infinite;
+    }
+    @keyframes buttonSweep {
+      0%, 60% { left: -70%; }
+      80%, 100% { left: 140%; }
     }
 
-    /* Kayan Şerit (Marquee) */
-    @keyframes marqueeAnim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .track-marquee { display: flex; width: 200%; animation: marqueeAnim 28s linear infinite; }
+    /* Kayan Şeritler */
+    @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .track-marquee { display: flex; width: 200%; animation: marqueeScroll 26s linear infinite; }
     .track-marquee:hover { animation-play-state: paused; }
-    @keyframes topBarMarquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+
+    @keyframes topBarScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* Akordiyon Animasyonu */
     .faq-body {
       display: grid;
       grid-template-rows: 0fr;
       opacity: 0;
-      transition: grid-template-rows .3s ease, opacity .3s ease;
+      transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     }
     .faq-item.active .faq-body {
       grid-template-rows: 1fr;
@@ -82,138 +97,214 @@
     .faq-body > div { overflow: hidden; }
     .faq-item.active .faq-icon {
       transform: rotate(180deg);
-      color: #059669;
+      color: #10B981;
     }
 
-    /* İnteraktif Öncesi / Sonrası Slider */
+    /* İnteraktif Öncesi / Sonrası Sürgüsü */
     .ba-container { position: relative; width: 100%; overflow: hidden; user-select: none; touch-action: pan-y; }
     .ba-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
     .ba-before-wrapper { position: absolute; inset: 0; width: 100%; height: 100%; clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); will-change: clip-path; }
-    .ba-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; background: #D7A83E; transform: translateX(-50%); box-shadow: 0 0 14px rgba(215, 168, 62, 0.8); pointer-events: none; z-index: 20; }
-    .ba-handle-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 9999px; background: #D7A83E; color: #02261D; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px rgba(0,0,0,0.35); border: 3px solid #FFFFFF; pointer-events: none; z-index: 25; }
+    .ba-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #F59E0B; transform: translateX(-50%); box-shadow: 0 0 20px rgba(245, 158, 11, 0.95); pointer-events: none; z-index: 20; }
+    .ba-handle-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; border-radius: 9999px; background: linear-gradient(135deg, #FBBF24, #F59E0B); color: #011913; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 22px rgba(0,0,0,0.45); border: 3px solid #FFFFFF; pointer-events: none; z-index: 25; }
     .ba-range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 30; margin: 0; }
 
-    /* Kart Hover Efektleri */
-    .service-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-    .service-card:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(6, 60, 47, 0.12); }
-    
-    .reference-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-    .reference-card:hover { transform: translateY(-5px); box-shadow: 0 18px 35px rgba(6,60,47,.12); border-color: rgba(5,150,105,.25); }
-    .reference-visual img { filter: grayscale(100%); transition: filter .35s ease, transform .45s ease; }
-    .reference-card:hover .reference-visual img { filter: grayscale(0%); transform: scale(1.04); }
+    /* Kart Animasyonları */
+    .service-card-pro {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .service-card-pro:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.18);
+      border-color: #10B981;
+    }
 
-    /* Header & Dropdown */
-    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid #eef2f5; box-shadow: 0 4px 20px rgba(0,0,0,.05); }
-    .dropdown:hover .service-dropdown, .dropdown:focus-within .service-dropdown { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0); }
-    .service-dropdown { position: absolute; top: calc(100% + 8px); left: 50%; transform: translate(-50%, -6px); width: 300px; padding: 10px; background: rgba(255,255,255,.99); border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 18px 45px rgba(6,60,47,.14); opacity: 0; visibility: hidden; pointer-events: none; transition: all .18s ease; }
+    /* Header Blur & Shadow */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+      box-shadow: 0 4px 25px rgba(0, 40, 30, 0.04);
+    }
+    .dropdown:hover .service-dropdown, .dropdown:focus-within .service-dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
+    }
+    .service-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translate(-50%, -8px);
+      width: 320px;
+      padding: 12px;
+      background: #FFFFFF;
+      border: 1px solid #D1FAE5;
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(2, 44, 34, 0.18);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-    /* Whatsapp Sabit Buton */
-    @keyframes pulseWa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); } 70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
-    .wa-floating-btn { animation: pulseWa 2s infinite; }
+    /* WhatsApp Pulse */
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 18px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .wa-floating-btn { animation: pulseGlow 2.2s infinite; }
   </style>
 </head>
-<body class="selection:bg-hijyon-gold selection:text-hijyon-deep">
+<body class="selection:bg-hijyon-bright selection:text-white">
 
   <!-- ========================================================
-       1. ÜST DUYURU BARI (TOP BAR)
+       1. ÜST BİLGİ VE ACİL DESTEK BARI
        ======================================================== -->
-  <div class="w-full bg-hijyon-deep border-b border-hijyon-forest/80 relative z-50">
-    <div class="max-w-[1400px] min-h-[46px] mx-auto px-4 sm:px-6 flex items-center justify-between gap-4 overflow-hidden">
-      <div class="hidden lg:flex items-center gap-2">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-hijyon-forest/70 text-hijyon-bright text-[11px] font-bold border border-white/10">
-          <span class="w-1.5 h-1.5 rounded-full bg-hijyon-bright animate-pulse"></span> 7/24 Hizmet
+  <div class="w-full bg-gradient-to-r from-hijyon-night via-hijyon-deep to-hijyon-night border-b border-emerald-500/20 text-white relative z-50">
+    <div class="max-w-[1440px] min-h-[46px] mx-auto px-4 sm:px-6 flex items-center justify-between gap-4 overflow-hidden">
+      
+      <div class="hidden lg:flex items-center gap-2.5">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-hijyon-neon text-[11px] font-black border border-emerald-400/30">
+          <span class="w-2 h-2 rounded-full bg-hijyon-neon animate-ping"></span> 20+ YILLIK SEKTÖREL GÜVEN
         </span>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-950/60 text-hijyon-gold text-[11px] font-bold border border-hijyon-gold/40">
-          <i data-lucide="award" class="w-3 h-3"></i> EK-1 Belgeli
-        </span>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 text-emerald-100 text-[11px] font-bold border border-emerald-400/30">
-          <i data-lucide="shield-check" class="w-3 h-3 text-hijyon-bright"></i> Avrupa Menşeili İlaçlama
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-hijyon-goldLight text-[11px] font-black border border-amber-400/30">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-hijyon-goldLight"></i> RESMİ EK-1 BELGELİ
         </span>
       </div>
 
-      <div class="flex-1 overflow-hidden whitespace-nowrap mask-image" style="-webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);">
-        <div class="inline-flex items-center w-max animate-[topBarMarquee_32s_linear_infinite] hover:[animation-play-state:paused]">
-          <span class="inline-flex items-center pr-10 text-[#dbe8e3] text-[11px] font-semibold tracking-wide">📍 İstanbul'un 39 ilçesine; Kocaeli, Tekirdağ, Yalova, Bursa, Kırklareli, Sakarya, Edirne, Düzce ve Bolu illerine profesyonel hizmet</span>
-          <span class="inline-flex items-center pr-10 text-[#dbe8e3] text-[11px] font-semibold tracking-wide">• Avrupa Menşeili Sıvı ve Jel İlaçlama • Kokusuz ve Kalıntısız Çözümler</span>
+      <div class="flex-1 overflow-hidden whitespace-nowrap mask-image" style="-webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);">
+        <div class="inline-flex items-center w-max animate-[topBarScroll_32s_linear_infinite] hover:[animation-play-state:paused]">
+          <span class="inline-flex items-center pr-10 text-emerald-100/90 text-xs font-semibold tracking-wide">
+            📍 İstanbul (39 İlçe) • Kocaeli • Tekirdağ • Yalova • Bursa • Kırklareli • Sakarya • Edirne • Düzce • Bolu
+          </span>
+          <span class="inline-flex items-center pr-10 text-hijyon-goldLight text-xs font-bold tracking-wide">
+            ★ Wama's, MADO, Monoburger, Maslak 1453 Eşref ve Türkiye'nin Öncü Markalarının Hijyen Çözüm Ortağı
+          </span>
+          <span class="inline-flex items-center pr-10 text-emerald-100/90 text-xs font-semibold tracking-wide">
+            🌿 Kokusuz, İnsan ve Evcil Hayvan Dostu Avrupa Menşeili Jel & Sıvı İlaçlama
+          </span>
         </div>
       </div>
 
-      <a href="tel:05389898659" class="shrink-0 inline-flex items-center gap-1.5 text-white hover:text-hijyon-gold text-[13px] font-extrabold transition-colors">
-        <i data-lucide="phone-call" class="w-3.5 h-3.5 text-hijyon-gold"></i> 0538 989 86 59
+      <a href="tel:05389898659" class="shrink-0 inline-flex items-center gap-2 text-white hover:text-hijyon-goldLight text-xs sm:text-sm font-black transition-colors bg-white/5 hover:bg-white/10 px-3.5 py-1.5 rounded-xl border border-white/10">
+        <i data-lucide="phone-call" class="w-4 h-4 text-hijyon-goldLight animate-bounce"></i>
+        <span>0538 989 86 59</span>
       </a>
+
     </div>
   </div>
 
   <!-- ========================================================
-       2. HEADER & MENÜ
+       2. HEADER & KURUMSAL MENÜ
        ======================================================== -->
   <header class="site-header">
-    <div class="max-w-[1300px] min-h-[76px] mx-auto px-4 sm:px-6 flex justify-between items-center gap-5">
+    <div class="max-w-[1360px] min-h-[82px] mx-auto px-4 sm:px-6 flex justify-between items-center gap-5">
       
       <!-- Logo -->
-      <a href="#ana-sayfa" class="inline-flex items-center gap-3 shrink-0 group">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-hijyon-forest to-hijyon-deep flex items-center justify-center text-white shadow-md border border-hijyon-bright/30 group-hover:scale-105 transition-transform">
-          <i data-lucide="shield-check" class="w-6 h-6 text-hijyon-bright"></i>
+      <a href="#ana-sayfa" class="inline-flex items-center gap-3.5 shrink-0 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-hijyon-forest to-hijyon-night flex items-center justify-center text-white shadow-glow-emerald border border-hijyon-bright/40 group-hover:scale-105 transition-transform duration-300">
+          <i data-lucide="shield-check" class="w-7 h-7 text-hijyon-neon"></i>
         </div>
         <div class="flex flex-col">
-          <span class="text-xl sm:text-2xl font-black tracking-tight text-hijyon-forest leading-none font-serif">HİJYONET</span>
-          <span class="text-[9px] sm:text-[10px] font-bold text-hijyon-emerald uppercase tracking-wider mt-1">İlaçlama & Profesyonel Hijyen</span>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl sm:text-3xl font-black tracking-tight text-hijyon-night leading-none font-serif">HİJYONET</span>
+            <span class="bg-hijyon-gold/20 text-hijyon-forest text-[10px] font-black px-2 py-0.5 rounded-md border border-hijyon-gold/40">20+ YIL</span>
+          </div>
+          <span class="text-[10px] sm:text-[11px] font-extrabold text-hijyon-emerald uppercase tracking-wider mt-1">İlaçlama & Profesyonel Hijyen</span>
         </div>
       </a>
 
       <!-- Masaüstü Navigasyon -->
-      <nav class="hidden xl:flex items-center gap-6">
-        <a href="#ana-sayfa" class="text-sm font-semibold text-slate-700 hover:text-hijyon-emerald transition-colors">Ana Sayfa</a>
+      <nav class="hidden xl:flex items-center gap-7">
+        <a href="#ana-sayfa" class="text-sm font-bold text-slate-800 hover:text-hijyon-emerald transition-colors">Ana Sayfa</a>
 
         <div class="dropdown relative py-4">
-          <button class="flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-hijyon-emerald transition-colors outline-none">
-            Hizmetlerimiz <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"></i>
+          <button class="flex items-center gap-1.5 text-sm font-bold text-slate-800 hover:text-hijyon-emerald transition-colors outline-none">
+            Hizmetlerimiz <i data-lucide="chevron-down" class="w-4 h-4 text-emerald-600 transition-transform duration-200"></i>
           </button>
           <div class="service-dropdown">
-            <a href="#jel-ilaclama" class="flex items-center gap-2.5 p-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-hijyon-emerald hover:bg-emerald-50/50 transition-all"><i data-lucide="syringe" class="w-4 h-4 text-hijyon-gold"></i> Jel İlaçlama</a>
-            <a href="#ilaclama" class="flex items-center gap-2.5 p-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-hijyon-emerald hover:bg-emerald-50/50 transition-all"><i data-lucide="spray-can" class="w-4 h-4 text-hijyon-gold"></i> Sıvı İlaçlama (Avrupa)</a>
-            <a href="#dezenfeksiyon" class="flex items-center gap-2.5 p-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-hijyon-emerald hover:bg-emerald-50/50 transition-all"><i data-lucide="shield-check" class="w-4 h-4 text-hijyon-gold"></i> Ev ve İşyeri Dezenfeksiyonu</a>
-            <a href="#ulv-sistemleri" class="flex items-center gap-2.5 p-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-hijyon-emerald hover:bg-emerald-50/50 transition-all"><i data-lucide="wind" class="w-4 h-4 text-hijyon-gold"></i> ULV Sisleme</a>
-            <a href="#cati-temizligi" class="flex items-center gap-2.5 p-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-hijyon-emerald hover:bg-emerald-50/50 transition-all"><i data-lucide="house" class="w-4 h-4 text-hijyon-gold"></i> Çatı Boşluğu Temizliği</a>
-            <a href="#cati-temizligi" class="flex items-center gap-2.5 p-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-hijyon-emerald hover:bg-emerald-50/50 transition-all"><i data-lucide="sparkles" class="w-4 h-4 text-hijyon-gold"></i> Destekleyici Temizlik</a>
+            <a href="#jel-ilaclama" class="flex items-center gap-3 p-3 rounded-xl text-sm font-bold text-slate-800 hover:text-hijyon-forest hover:bg-emerald-50 transition-all">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0"><i data-lucide="syringe" class="w-4 h-4"></i></span>
+              <div>
+                <span class="block">Jel İlaçlama</span>
+                <span class="text-[11px] text-slate-500 font-medium">Evden çıkmadan kokusuz çözüm</span>
+              </div>
+            </a>
+            <a href="#ilaclama" class="flex items-center gap-3 p-3 rounded-xl text-sm font-bold text-slate-800 hover:text-hijyon-forest hover:bg-emerald-50 transition-all">
+              <span class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0"><i data-lucide="spray-can" class="w-4 h-4"></i></span>
+              <div>
+                <span class="block">Sıvı İlaçlama</span>
+                <span class="text-[11px] text-slate-500 font-medium">Avrupa menşeili kalıcı etki</span>
+              </div>
+            </a>
+            <a href="#dezenfeksiyon" class="flex items-center gap-3 p-3 rounded-xl text-sm font-bold text-slate-800 hover:text-hijyon-forest hover:bg-emerald-50 transition-all">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0"><i data-lucide="shield-check" class="w-4 h-4"></i></span>
+              <div>
+                <span class="block">Dezenfeksiyon</span>
+                <span class="text-[11px] text-slate-500 font-medium">Bakteri ve virüslere son</span>
+              </div>
+            </a>
+            <a href="#ulv-sistemleri" class="flex items-center gap-3 p-3 rounded-xl text-sm font-bold text-slate-800 hover:text-hijyon-forest hover:bg-emerald-50 transition-all">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0"><i data-lucide="wind" class="w-4 h-4"></i></span>
+              <div>
+                <span class="block">ULV Soğuk Sisleme</span>
+                <span class="text-[11px] text-slate-500 font-medium">Mikronize derin arındırma</span>
+              </div>
+            </a>
+            <a href="#cati-temizligi" class="flex items-center gap-3 p-3 rounded-xl text-sm font-bold text-slate-800 hover:text-hijyon-forest hover:bg-emerald-50 transition-all">
+              <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center shrink-0"><i data-lucide="home" class="w-4 h-4"></i></span>
+              <div>
+                <span class="block">Çatı Boşluğu Temizliği</span>
+                <span class="text-[11px] text-slate-500 font-medium">Vakumlu tavan arası hijyeni</span>
+              </div>
+            </a>
           </div>
         </div>
 
-        <a href="#referanslar" class="text-sm font-semibold text-slate-700 hover:text-hijyon-emerald transition-colors">Bizi Tercih Edenler</a>
-        <a href="#oncesi-sonrasi" class="text-sm font-semibold text-slate-700 hover:text-hijyon-emerald transition-colors">Öncesi / Sonrası</a>
-        <a href="#iletisim" class="text-sm font-semibold text-slate-700 hover:text-hijyon-emerald transition-colors">İletişim & Teklif</a>
+        <a href="#oncesi-sonrasi" class="text-sm font-bold text-slate-800 hover:text-hijyon-emerald transition-colors">Öncesi / Sonrası</a>
+        <a href="#servis-agi" class="text-sm font-bold text-slate-800 hover:text-hijyon-emerald transition-colors">Hizmet Ağı</a>
+        <a href="#referanslar" class="text-sm font-bold text-slate-800 hover:text-hijyon-emerald transition-colors">Referanslarımız</a>
+        <a href="#iletisim" class="text-sm font-bold text-slate-800 hover:text-hijyon-emerald transition-colors">Fiyat & Teklif</a>
       </nav>
 
       <!-- Aksiyon Butonları -->
       <div class="flex items-center gap-3">
         <a href="https://wa.me/905389898659?text=Merhaba%20H%C4%B0JYONET%2C%20ila%C3%A7lama%20hizmeti%20i%C3%A7in%20teklif%20almak%20istiyorum."
            target="_blank" rel="noopener noreferrer"
-           class="btn-shimmer hidden sm:flex items-center gap-2 bg-hijyon-gold hover:bg-hijyon-goldLight text-hijyon-deep font-extrabold text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow-md transition-transform active:scale-95">
+           class="btn-glow hidden sm:flex items-center gap-2.5 bg-gradient-to-r from-hijyon-gold to-amber-500 hover:from-amber-500 hover:to-hijyon-gold text-hijyon-night font-black text-xs sm:text-sm px-6 py-3 rounded-xl shadow-glow-gold transition-transform active:scale-95">
+          <i data-lucide="calculator" class="w-4 h-4"></i>
           <span>WHATSAPP'TAN TEKLİF AL</span>
         </a>
-        <button id="menuToggleBtn" aria-label="Mobil menüyü aç" aria-expanded="false" class="xl:hidden p-2 text-hijyon-forest bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors shrink-0">
-          <i data-lucide="menu" class="w-5 h-5"></i>
+        <button id="menuToggleBtn" aria-label="Mobil menüyü aç" aria-expanded="false" class="xl:hidden p-2.5 text-hijyon-forest bg-emerald-50 hover:bg-emerald-100 rounded-xl transition-colors shrink-0">
+          <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
+
     </div>
 
     <!-- Mobil Menü Çekmecesi -->
-    <nav id="mobileMenuPanel" class="hidden xl:hidden bg-white border-t border-slate-200 px-4 py-5 shadow-xl">
-      <div class="flex flex-col gap-2 text-sm font-bold text-slate-700">
-        <a href="#ana-sayfa" class="p-3 bg-slate-50 rounded-xl hover:text-hijyon-emerald">Ana Sayfa</a>
-        <div class="p-3 bg-slate-50 rounded-xl">
-          <span class="flex items-center justify-between text-hijyon-emerald mb-2">Hizmetlerimiz <i data-lucide="chevron-down" class="w-4 h-4"></i></span>
-          <div class="flex flex-col gap-2 pl-2 border-l-2 border-emerald-100">
-            <a href="#jel-ilaclama" class="py-1 text-slate-600 hover:text-hijyon-emerald">Jel İlaçlama</a>
-            <a href="#ilaclama" class="py-1 text-slate-600 hover:text-hijyon-emerald">Sıvı İlaçlama</a>
-            <a href="#dezenfeksiyon" class="py-1 text-slate-600 hover:text-hijyon-emerald">Dezenfeksiyon</a>
-            <a href="#ulv-sistemleri" class="py-1 text-slate-600 hover:text-hijyon-emerald">ULV Sisleme</a>
-            <a href="#cati-temizligi" class="py-1 text-slate-600 hover:text-hijyon-emerald">Çatı Boşluğu</a>
+    <nav id="mobileMenuPanel" class="hidden xl:hidden bg-white border-t border-emerald-100 px-5 py-6 shadow-2xl">
+      <div class="flex flex-col gap-2.5 text-sm font-bold text-slate-800">
+        <a href="#ana-sayfa" class="p-3.5 bg-emerald-50/50 rounded-xl hover:text-hijyon-emerald">Ana Sayfa</a>
+        <div class="p-3.5 bg-emerald-50/50 rounded-xl">
+          <span class="flex items-center justify-between text-hijyon-forest mb-2">Hizmetlerimiz <i data-lucide="chevron-down" class="w-4 h-4"></i></span>
+          <div class="flex flex-col gap-2 pl-3 border-l-2 border-emerald-300">
+            <a href="#jel-ilaclama" class="py-1 text-slate-600 hover:text-hijyon-emerald">Jel İlaçlama (Kokusuz)</a>
+            <a href="#ilaclama" class="py-1 text-slate-600 hover:text-hijyon-emerald">Sıvı İlaçlama (Avrupa)</a>
+            <a href="#dezenfeksiyon" class="py-1 text-slate-600 hover:text-hijyon-emerald">Ortam Dezenfeksiyonu</a>
+            <a href="#ulv-sistemleri" class="py-1 text-slate-600 hover:text-hijyon-emerald">ULV Soğuk Sisleme</a>
+            <a href="#cati-temizligi" class="py-1 text-slate-600 hover:text-hijyon-emerald">Çatı Boşluğu Temizliği</a>
           </div>
         </div>
-        <a href="#referanslar" class="p-3 bg-slate-50 rounded-xl hover:text-hijyon-emerald">Bizi Tercih Edenler</a>
-        <a href="#oncesi-sonrasi" class="p-3 bg-slate-50 rounded-xl hover:text-hijyon-emerald">Öncesi / Sonrası</a>
-        <a href="#iletisim" class="p-3 bg-slate-50 rounded-xl hover:text-hijyon-emerald">İletişim</a>
+        <a href="#oncesi-sonrasi" class="p-3.5 bg-emerald-50/50 rounded-xl hover:text-hijyon-emerald">Öncesi / Sonrası</a>
+        <a href="#servis-agi" class="p-3.5 bg-emerald-50/50 rounded-xl hover:text-hijyon-emerald">Hizmet Ağı</a>
+        <a href="#referanslar" class="p-3.5 bg-emerald-50/50 rounded-xl hover:text-hijyon-emerald">Referanslarımız</a>
+        <a href="#iletisim" class="p-3.5 bg-emerald-50/50 rounded-xl hover:text-hijyon-emerald">Teklif & İletişim</a>
       </div>
     </nav>
   </header>
@@ -221,77 +312,86 @@
   <!-- ========================================================
        3. HERO BÖLÜMÜ
        ======================================================== -->
-  <section id="ana-sayfa" class="relative bg-gradient-to-br from-hijyon-deep via-hijyon-forest to-hijyon-deep text-white py-16 lg:py-24 border-b border-hijyon-forest overflow-hidden">
+  <section id="ana-sayfa" class="relative bg-gradient-to-b from-hijyon-night via-hijyon-deep to-hijyon-forest text-white py-16 lg:py-24 overflow-hidden border-b border-emerald-500/20">
+    
+    <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-amber-500/15 blur-3xl pointer-events-none"></div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
         
-        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="lg:col-span-7 space-y-7 text-center lg:text-left">
+          
           <div class="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-hijyon-forest/90 border border-hijyon-bright/40 text-hijyon-bright text-xs font-extrabold tracking-wider">
-              <i data-lucide="shield" class="w-3.5 h-3.5"></i> YETKİ VE MEVZUATA UYGUN HİZMET
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-500/10 border border-amber-400/50 text-hijyon-goldLight text-xs font-black shadow-sm">
+              <i data-lucide="award" class="w-4 h-4 text-amber-400"></i> 20 YILI AŞKIN PROFESYONEL DENEYİM
             </span>
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-400/20 border border-hijyon-gold/50 text-hijyon-gold text-xs font-extrabold">
-              <i data-lucide="award" class="w-3.5 h-3.5"></i> EK-1 BELGESİ VERİLİR
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-hijyon-neon text-xs font-black">
+              <i data-lucide="file-check-2" class="w-4 h-4"></i> SAĞLIK BAKANLIĞI EK-1 BELGELİ
             </span>
           </div>
 
-          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-serif tracking-tight leading-[1.12]">
-            İstanbul ve Çevre İllerde <br>
-            <span class="text-hijyon-gold">Avrupa Menşeili İlaçlama</span> ve Dezenfeksiyon
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black font-serif tracking-tight leading-[1.14]">
+            İstanbul & Çevre İllerde <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-hijyon-goldLight via-yellow-200 to-hijyon-gold">Avrupa Standartlarında</span> Haşere & Hijyen Kontrolü
           </h1>
 
-          <p class="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-            Ev, işyeri, depo ve gıda alanları için profesyonel haşere kontrolü. Avrupa menşeili kokusuz jel ve sıvı ilaçlama yöntemleriyle hedefe yönelik koruma.
+          <p class="text-emerald-100/90 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            Zincir restoranlardan gıda toptancılarına, fabrikalardan dairelere kadar 20 yıllık saha uzmanlığımız ve kokusuz, lekesiz Avrupa formülleriyle kesin çözüm garantisi.
           </p>
 
           <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-            <a href="#iletisim" class="w-full sm:w-auto btn-shimmer bg-hijyon-gold hover:bg-hijyon-goldLight text-hijyon-deep px-8 py-4 rounded-xl font-extrabold text-sm sm:text-base shadow-xl flex items-center justify-center gap-2.5 transition-transform active:scale-95">
-              <i data-lucide="file-text" class="w-5 h-5"></i>
-              <span>METREKAREYE GÖRE TEKLİF AL</span>
+            <a href="#iletisim" class="w-full sm:w-auto btn-glow bg-gradient-to-r from-hijyon-gold to-amber-500 hover:from-amber-500 hover:to-hijyon-gold text-hijyon-night px-8 py-4 rounded-2xl font-black text-sm sm:text-base shadow-glow-gold flex items-center justify-center gap-3 transition-transform active:scale-95">
+              <i data-lucide="calculator" class="w-5 h-5 text-hijyon-night"></i>
+              <span>METREKAREYE GÖRE ANINDA TEKLİF AL</span>
             </a>
             
             <a href="https://wa.me/905389898659?text=Merhaba%20H%C4%B0JYONET%2C%20ila%C3%A7lama%20hizmeti%20i%C3%A7in%20teklif%20almak%20istiyorum." 
                target="_blank" rel="noopener noreferrer"
-               class="w-full sm:w-auto bg-white/10 hover:bg-white/15 border border-white/20 text-white px-7 py-4 rounded-xl font-extrabold text-sm sm:text-base backdrop-blur flex items-center justify-center gap-2 transition-all">
-              <i data-lucide="message-circle" class="w-5 h-5 text-emerald-400"></i>
-              <span>WHATSAPP İLE ULAŞIN</span>
+               class="w-full sm:w-auto bg-white/10 hover:bg-white/20 border border-emerald-400/30 text-white px-7 py-4 rounded-2xl font-black text-sm sm:text-base backdrop-blur-md flex items-center justify-center gap-2.5 transition-all">
+              <i data-lucide="message-circle" class="w-5 h-5 text-hijyon-neon"></i>
+              <span>WHATSAPP HIZLI DESTEK</span>
             </a>
           </div>
 
-          <div class="pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
-            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
-              <span class="text-[11px] font-bold text-hijyon-gold block">EK-1 Belgesi</span>
-              <span class="text-xs font-semibold text-slate-200">Resmi Mühürlü Dosya</span>
+          <div class="pt-6 border-t border-emerald-500/20 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+            <div class="bg-emerald-950/40 border border-emerald-500/20 rounded-2xl p-3.5 backdrop-blur-sm">
+              <span class="text-xs font-black text-hijyon-goldLight block">20+ Yıl</span>
+              <span class="text-xs font-semibold text-emerald-100">Sektörel Liderlik</span>
             </div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
-              <span class="text-[11px] font-bold text-hijyon-bright block">Avrupa Menşeili</span>
-              <span class="text-xs font-semibold text-slate-200">Sıvı & Jel Sistemler</span>
+            <div class="bg-emerald-950/40 border border-emerald-500/20 rounded-2xl p-3.5 backdrop-blur-sm">
+              <span class="text-xs font-black text-hijyon-neon block">Resmi EK-1</span>
+              <span class="text-xs font-semibold text-emerald-100">Mühürlü Belge</span>
             </div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
-              <span class="text-[11px] font-bold text-hijyon-gold block">Evden Çıkış Yok</span>
-              <span class="text-xs font-semibold text-slate-200">Kokusuz & Kalıntısız</span>
+            <div class="bg-emerald-950/40 border border-emerald-500/20 rounded-2xl p-3.5 backdrop-blur-sm">
+              <span class="text-xs font-black text-hijyon-goldLight block">Kokusuz & Temiz</span>
+              <span class="text-xs font-semibold text-emerald-100">Evden Çıkış Yok</span>
             </div>
-            <div class="bg-white/5 border border-white/10 rounded-xl p-3">
-              <span class="text-[11px] font-bold text-hijyon-bright block">Hizmet Ağı</span>
-              <span class="text-xs font-semibold text-slate-200">İstanbul & 9 Çevre İl</span>
+            <div class="bg-emerald-950/40 border border-emerald-500/20 rounded-2xl p-3.5 backdrop-blur-sm">
+              <span class="text-xs font-black text-hijyon-neon block">İstanbul + 9 İl</span>
+              <span class="text-xs font-semibold text-emerald-100">Aynı Gün Servis</span>
             </div>
           </div>
+
         </div>
 
         <div class="lg:col-span-5">
           <div class="relative mx-auto max-w-md lg:max-w-none">
-            <div class="relative rounded-2xl overflow-hidden border-2 border-hijyon-gold/40 shadow-2xl bg-hijyon-deep">
-              <img src="https://images.pexels.com/photos/4098322/pexels-photo-4098322.jpeg?auto=compress&cs=tinysrgb&w=800" 
+            <div class="relative rounded-3xl overflow-hidden border-2 border-emerald-400/40 shadow-glow-emerald bg-hijyon-night">
+              <img src="https://images.pexels.com/photos/4098322/pexels-photo-4098322.jpeg?auto=compress&cs=tinysrgb&w=900" 
                    alt="HİJYONET Saha Uygulaması" 
-                   class="w-full h-[360px] sm:h-[460px] object-cover">
-              <div class="absolute inset-0 bg-gradient-to-t from-hijyon-deep via-transparent to-transparent"></div>
+                   class="w-full h-[380px] sm:h-[480px] object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-hijyon-night via-transparent to-transparent"></div>
               
-              <div class="absolute bottom-4 inset-x-4 bg-hijyon-forest/90 backdrop-blur-md p-4 rounded-xl border border-white/15 flex items-center justify-between gap-3">
+              <div class="absolute bottom-4 inset-x-4 bg-hijyon-deep/90 backdrop-blur-md p-4 rounded-2xl border border-emerald-500/30 flex items-center justify-between gap-3 shadow-xl">
                 <div>
-                  <span class="text-xs font-black text-hijyon-gold block">HİJYONET Saha Uygulama</span>
-                  <p class="text-[11px] text-slate-200 mt-0.5">Uzman personel & hedefli uygulama planı</p>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-hijyon-neon animate-pulse"></span>
+                    <span class="text-xs font-black text-white">20 Yıllık Kurumsal Güvence</span>
+                  </div>
+                  <p class="text-[11px] text-emerald-200 mt-0.5">Avrupa Formülleri ile Kalıntı Bırakmaz</p>
                 </div>
-                <span class="bg-hijyon-gold text-hijyon-deep text-[11px] font-black px-2.5 py-1 rounded shadow">
+                <span class="bg-gradient-to-r from-hijyon-gold to-amber-500 text-hijyon-night text-[11px] font-black px-3 py-1.5 rounded-xl shadow-md">
                   EK-1 BELGELİ
                 </span>
               </div>
@@ -304,284 +404,200 @@
   </section>
 
   <!-- ========================================================
-       4. HAREKETLİ YERLER (MARQUEE)
+       4. GÜVEN VE İSTATİSTİK ŞERİDİ
        ======================================================== -->
-  <div class="bg-gradient-to-r from-hijyon-brown via-[#d8b894] to-hijyon-brown py-3.5 overflow-hidden border-y border-amber-700/20 shadow-inner">
-    <div class="track-marquee whitespace-nowrap flex items-center gap-6 text-xs sm:text-sm font-extrabold text-hijyon-deep">
-      <span class="inline-flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4"></i> PROFESYONEL İLAÇLAMA</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="bug" class="w-4 h-4"></i> AVRUPA MENŞEİLİ SIVI VE JEL İLAÇLAMA</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="sparkles" class="w-4 h-4"></i> EV VE İŞYERİ DEZENFEKSİYONU</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="wind" class="w-4 h-4"></i> PROFESYONEL ULV SOĞUK SİSLEME</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="file-check-2" class="w-4 h-4"></i> EK-1 BELGESİ VERİLİR</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="map-pin" class="w-4 h-4"></i> İSTANBUL 39 İLÇE + 9 ÇEVRE İL</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="shield" class="w-4 h-4"></i> PROFESYONEL İLAÇLAMA</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="bug" class="w-4 h-4"></i> AVRUPA MENŞEİLİ SIVI VE JEL İLAÇLAMA</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="sparkles" class="w-4 h-4"></i> EV VE İŞYERİ DEZENFEKSİYONU</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="wind" class="w-4 h-4"></i> PROFESYONEL ULV SOĞUK SİSLEME</span>
-      <span class="inline-flex items-center gap-2">• <i data-lucide="file-check-2" class="w-4 h-4"></i> EK-1 BELGESİ VERİLİR</span>
+  <section class="bg-white py-8 border-b border-emerald-100 relative z-20 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        
+        <div class="p-3 border-r border-slate-100 last:border-0">
+          <div class="text-3xl sm:text-4xl font-black font-serif text-hijyon-forest">20+ Yıl</div>
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Sektörel Deneyim</p>
+        </div>
+
+        <div class="p-3 border-r border-slate-100 last:border-0">
+          <div class="text-3xl sm:text-4xl font-black font-serif text-emerald-600">%100</div>
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Resmi EK-1 Uyumu</p>
+        </div>
+
+        <div class="p-3 border-r border-slate-100 last:border-0">
+          <div class="text-3xl sm:text-4xl font-black font-serif text-amber-600">3.500+</div>
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Kurumsal & Bireysel Referans</p>
+        </div>
+
+        <div class="p-3">
+          <div class="text-3xl sm:text-4xl font-black font-serif text-hijyon-forest">10 İl</div>
+          <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Geniş Hizmet Ağı</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       5. HAREKETLİ PRESTİJ BANDI
+       ======================================================== -->
+  <div class="bg-gradient-to-r from-amber-600 via-hijyon-gold to-amber-600 py-3.5 overflow-hidden shadow-inner text-hijyon-night">
+    <div class="track-marquee whitespace-nowrap flex items-center gap-7 text-xs sm:text-sm font-black">
+      <span class="inline-flex items-center gap-1.5"><i data-lucide="shield-check" class="w-4 h-4"></i> 20 YILLIK SAHA TECRÜBESİ</span>
+      <span class="inline-flex items-center gap-1.5">• WAMA'S</span>
+      <span class="inline-flex items-center gap-1.5">• MONOBURGER</span>
+      <span class="inline-flex items-center gap-1.5">• MADO TAKSİM / TÜNEL / GALATASARAY / GÜMÜŞSUYU / 1453</span>
+      <span class="inline-flex items-center gap-1.5">• PERA FIRIN</span>
+      <span class="inline-flex items-center gap-1.5">• İSTOÇ TUDAB & BAĞCIOĞLU</span>
+      <span class="inline-flex items-center gap-1.5">• MEGACENTER TUDAB</span>
+      <span class="inline-flex items-center gap-1.5">• HEY DÖNER ŞUBELERİ</span>
+      <span class="inline-flex items-center gap-1.5">• MASLAK 1453 EŞREF KULÜP</span>
+      <span class="inline-flex items-center gap-1.5">• LA PERLA WEDDING</span>
+      <span class="inline-flex items-center gap-1.5">• SÜTTANBUL</span>
+      <span class="inline-flex items-center gap-1.5">• EK-1 BELGELİ & KVKK GÜVENCELİ</span>
+      <span class="inline-flex items-center gap-1.5">• 20 YILLIK SAHA TECRÜBESİ</span>
+      <span class="inline-flex items-center gap-1.5">• WAMA'S</span>
+      <span class="inline-flex items-center gap-1.5">• MADO ŞUBELERİ</span>
     </div>
   </div>
 
   <!-- ========================================================
-       5. REFERANSLARIMIZ / BİZİ TERCİH EDENLER
+       6. HİZMETLERİMİZ (KARTLI BÖLÜM)
        ======================================================== -->
-  <section id="referanslar" class="py-16 sm:py-24 bg-gradient-to-b from-[#f8faf9] to-[#ffffff] border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-      <div class="max-w-3xl mx-auto text-center mb-12">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-hijyon-emerald text-[11px] sm:text-xs font-black uppercase tracking-widest border border-emerald-100">
-          <i data-lucide="building-2" class="w-3.5 h-3.5"></i> GÜVENİLİR ÇÖZÜM ORTAKLARIMIZ
-        </span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-serif text-hijyon-forest mt-3 leading-tight">
-          Bizi Tercih Edenler & Referanslarımız
-        </h2>
-        <p class="text-slate-600 text-sm sm:text-base leading-relaxed mt-4 max-w-2xl mx-auto">
-          Türkiye'nin önde gelen işletmelerine periyodik dezenfeksiyon, haşere kontrolü ve kurumsal hijyen çözümleri sunuyoruz.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <article class="reference-card relative min-h-[290px] overflow-hidden bg-white border border-[#e7ece9] rounded-[20px] shadow-lg">
-          <div class="reference-visual h-[178px] overflow-hidden relative">
-            <img src="https://images.pexels.com/photos/3769999/pexels-photo-3769999.jpeg?auto=compress&cs=tinysrgb&w=600" alt="MADO Referans" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-hijyon-deep/80"></div>
-            <div class="absolute left-3.5 bottom-3.5 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/95 text-hijyon-forest text-xs font-black shadow-lg">
-              <span class="w-7 h-7 rounded-lg bg-hijyon-forest text-hijyon-gold flex items-center justify-center text-[11px]">M</span> MADO
-            </div>
-          </div>
-          <div class="p-4 sm:p-5">
-            <h3 class="text-base font-black text-hijyon-forest">MADO</h3>
-            <p class="text-xs text-slate-500 font-semibold mt-2 leading-relaxed">Şube & Kafe Alanları Periyodik Haşere Kontrolü ve Hijyen Uygulamaları.</p>
-          </div>
-        </article>
-
-        <article class="reference-card relative min-h-[290px] overflow-hidden bg-white border border-[#e7ece9] rounded-[20px] shadow-lg">
-          <div class="reference-visual h-[178px] overflow-hidden relative">
-            <img src="https://images.pexels.com/photos/2114365/pexels-photo-2114365.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Eşref Kulüp" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-hijyon-deep/80"></div>
-            <div class="absolute left-3.5 bottom-3.5 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/95 text-hijyon-forest text-xs font-black shadow-lg">
-              <span class="w-7 h-7 rounded-lg bg-hijyon-forest text-hijyon-gold flex items-center justify-center text-[11px]">E</span> EŞREF KULÜP
-            </div>
-          </div>
-          <div class="p-4 sm:p-5">
-            <h3 class="text-base font-black text-hijyon-forest">EŞREF KULÜP</h3>
-            <p class="text-xs text-slate-500 font-semibold mt-2 leading-relaxed">Eğlence ve Etkinlik Alanları ULV Dezenfeksiyon & Düzenli İlaçlama.</p>
-          </div>
-        </article>
-
-        <article class="reference-card relative min-h-[290px] overflow-hidden bg-white border border-[#e7ece9] rounded-[20px] shadow-lg">
-          <div class="reference-visual h-[178px] overflow-hidden relative">
-            <img src="https://images.pexels.com/photos/4481328/pexels-photo-4481328.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Zincir Restoranlar" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-hijyon-deep/80"></div>
-            <div class="absolute left-3.5 bottom-3.5 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/95 text-hijyon-forest text-xs font-black shadow-lg">
-              <span class="w-7 h-7 rounded-lg bg-hijyon-forest text-hijyon-gold flex items-center justify-center text-[11px]">R</span> RESTORANLAR
-            </div>
-          </div>
-          <div class="p-4 sm:p-5">
-            <h3 class="text-base font-black text-hijyon-forest">Zincir Restoranlar</h3>
-            <p class="text-xs text-slate-500 font-semibold mt-2 leading-relaxed">Profesyonel Mutfak Hijyeni, Periyodik Haşere Kontrolü ve EK-1 Belgesi.</p>
-          </div>
-        </article>
-
-        <article class="reference-card relative min-h-[290px] overflow-hidden bg-white border border-[#e7ece9] rounded-[20px] shadow-lg">
-          <div class="reference-visual h-[178px] overflow-hidden relative">
-            <img src="https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Lojistik" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-hijyon-deep/80"></div>
-            <div class="absolute left-3.5 bottom-3.5 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/95 text-hijyon-forest text-xs font-black shadow-lg">
-              <span class="w-7 h-7 rounded-lg bg-hijyon-forest text-hijyon-gold flex items-center justify-center text-[11px]">L</span> LOJİSTİK
-            </div>
-          </div>
-          <div class="p-4 sm:p-5">
-            <h3 class="text-base font-black text-hijyon-forest">Depo & Lojistik</h3>
-            <p class="text-xs text-slate-500 font-semibold mt-2 leading-relaxed">Stok Alanları İçin Düzenli Haşere Kontrolü ve Kemirgen İstasyonları.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================================
-       6. EK-1 BELGESİ & KORUMA
-       ======================================================== -->
-  <section class="py-14 sm:py-20 bg-white border-b border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        
-        <div class="lg:col-span-7 space-y-4 text-center sm:text-left">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 text-hijyon-emerald text-xs font-black uppercase tracking-wider border border-emerald-200">
-            <i data-lucide="file-check-2" class="w-4 h-4"></i> YASAL VE RESMİ UYGULAMA
-          </div>
-          <h2 class="text-2xl sm:text-4xl font-extrabold text-hijyon-forest font-serif leading-tight">
-            Uygulama Sonrası Belgelendirme
-          </h2>
-          <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
-            İşletmenizdeki periyodik uygulamalar sonrasında uygulamanın niteliğine ve yetki kapsamına uygun belge ve uygulama kayıtları, gerekli olması halinde tarafınıza teslim edilir.
-          </p>
-          <div class="p-5 rounded-2xl bg-amber-50/80 border-2 border-hijyon-gold inline-block text-left shadow-sm">
-            <span class="text-hijyon-forest font-black text-xl sm:text-2xl tracking-wide block">
-              ( BELGELENDİRME DESTEĞİ )
-            </span>
-            <span class="text-xs sm:text-sm text-slate-700 block mt-1.5 font-medium">
-              Uygulama ve belgelendirme süreci, ilgili mevzuat ve yetki kapsamına uygun şekilde yürütülür.
-            </span>
-          </div>
-        </div>
-
-        <div class="lg:col-span-5">
-          <div class="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-slate-100">
-            <img src="https://images.pexels.com/photos/9858904/pexels-photo-9858904.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                 alt="Resmi Biyosidal Belgelendirme" 
-                 class="w-full h-[300px] sm:h-[340px] object-cover">
-            <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur px-3 py-1.5 rounded-lg border border-slate-200 text-hijyon-forest text-[11px] font-black shadow">
-              <i data-lucide="stamp" class="w-3.5 h-3.5 inline mr-1 text-hijyon-gold"></i> EK-1 BELGESİ NÜSHASI
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================================
-       7. HİZMETLERİMİZ (KARTLI YAPI)
-       ======================================================== -->
-  <section id="ilaclama" class="py-16 sm:py-24 bg-hijyon-surface border-b border-slate-200">
+  <section id="ilaclama" class="py-16 sm:py-24 bg-hijyon-surface border-b border-emerald-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       
-      <div class="max-w-3xl mb-12 text-center sm:text-left">
-        <span class="text-xs font-black text-hijyon-emerald uppercase tracking-widest block">ANA HİZMET ALANIMIZ</span>
-        <div class="w-16 h-1 bg-hijyon-gold my-3 mx-auto sm:mx-0"></div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold font-serif text-hijyon-forest">
-          Profesyonel İlaçlama Çözümleri
+      <div class="max-w-3xl mb-14 text-center sm:text-left">
+        <span class="text-xs font-black text-emerald-700 uppercase tracking-widest block">20 YILLIK UZMANLIK</span>
+        <div class="w-20 h-1.5 bg-gradient-to-r from-hijyon-gold to-emerald-500 my-3 mx-auto sm:mx-0 rounded-full"></div>
+        <h2 class="text-3xl sm:text-4xl font-black font-serif text-hijyon-forest">
+          Profesyonel İlaçlama ve Dezenfeksiyon
         </h2>
-        <p class="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed">
-          Ev, işyeri, endüstriyel tesisler ve gıda alanlarında karşılaşılan tüm haşere problemlerine yönelik İlgili mevzuata ve ürün kullanım talimatlarına uygun çözümler.
+        <p class="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed font-medium">
+          Yaşam alanlarında, restoranlarda ve gıda depolarında karşılaşılan tüm yürüyen ve uçan haşerelere karşı Avrupa standartlarında garantili koruma.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
         
         <!-- Kart 1: Jel İlaçlama -->
-        <article class="service-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between" id="jel-ilaclama">
+        <article class="service-card-pro bg-white rounded-3xl overflow-hidden border-2 border-emerald-100 shadow-card-elevated flex flex-col justify-between" id="jel-ilaclama">
           <div>
-            <div class="h-52 overflow-hidden bg-slate-100 relative">
-              <img src="https://images.pexels.com/photos/4176541/pexels-photo-4176541.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Jel İlaçlama" class="w-full h-full object-cover">
-              <span class="absolute top-3 right-3 bg-hijyon-forest/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Kokusuz Çözüm</span>
+            <div class="h-56 overflow-hidden bg-slate-100 relative">
+              <img src="https://images.pexels.com/photos/4176541/pexels-photo-4176541.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Jel İlaçlama" class="w-full h-full object-cover">
+              <span class="absolute top-4 right-4 bg-emerald-600 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md">Kokusuz & Kalıntısız</span>
             </div>
-            <div class="p-6">
+            <div class="p-7">
               <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="syringe" class="w-5 h-5 text-hijyon-gold"></i> JEL İLAÇLAMA</h3>
-              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-                Avrupa menşeili formüllerle evden çıkmadan uygulanan, hamam böceklerine karşı kokusuz ve leke bırakmayan çözüm.
+              <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-medium">
+                Avrupa menşeili formüllerle evden veya mutfaktan çıkmadan uygulanan, hamam böceği ve kalorifer böceklerine karşı kalıcı çözüm.
               </p>
             </div>
           </div>
-          <div class="px-6 pb-6 pt-2">
-            <a href="#iletisim" class="inline-flex items-center gap-1.5 text-xs font-extrabold text-hijyon-emerald hover:text-hijyon-forest transition-colors">
-              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <div class="px-7 pb-7 pt-2">
+            <a href="#iletisim" class="inline-flex items-center gap-2 text-xs font-black text-emerald-700 hover:text-emerald-900 transition-colors">
+              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
         </article>
 
         <!-- Kart 2: Sıvı İlaçlama -->
-        <article class="service-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+        <article class="service-card-pro bg-white rounded-3xl overflow-hidden border-2 border-emerald-100 shadow-card-elevated flex flex-col justify-between">
           <div>
-            <div class="h-52 overflow-hidden bg-slate-100 relative">
-              <img src="https://images.pexels.com/photos/6194234/pexels-photo-6194234.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sıvı İlaçlama" class="w-full h-full object-cover">
-              <span class="absolute top-3 right-3 bg-hijyon-forest/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Geniş Spektrum</span>
+            <div class="h-56 overflow-hidden bg-slate-100 relative">
+              <img src="https://images.pexels.com/photos/6194234/pexels-photo-6194234.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Sıvı İlaçlama" class="w-full h-full object-cover">
+              <span class="absolute top-4 right-4 bg-amber-600 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md">Geniş Spektrum</span>
             </div>
-            <div class="p-6">
-              <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="spray-can" class="w-5 h-5 text-hijyon-gold"></i> SIVI İLAÇLAMA</h3>
-              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-                Geniş yüzeylere ve duvar çatlaklarına derinlemesine nüfuz eden, her türlü yürüyen/uçan haşereye karşı hedefe yönelik koruma.
+            <div class="p-7">
+              <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="spray-can" class="w-5 h-5 text-hijyon-gold"></i> SIVI İLAÇLAMA (AVRUPA)</h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-medium">
+                Geniş yüzeylere ve duvar çatlaklarına derinlemesine nüfuz eden, pire, tahtakurusu, kene ve akrep gibi zararlılara karşı hedefe yönelik koruma.
               </p>
             </div>
           </div>
-          <div class="px-6 pb-6 pt-2">
-            <a href="#iletisim" class="inline-flex items-center gap-1.5 text-xs font-extrabold text-hijyon-emerald hover:text-hijyon-forest transition-colors">
-              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <div class="px-7 pb-7 pt-2">
+            <a href="#iletisim" class="inline-flex items-center gap-2 text-xs font-black text-emerald-700 hover:text-emerald-900 transition-colors">
+              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
         </article>
 
         <!-- Kart 3: Dezenfeksiyon -->
-        <article class="service-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between" id="dezenfeksiyon">
+        <article class="service-card-pro bg-white rounded-3xl overflow-hidden border-2 border-emerald-100 shadow-card-elevated flex flex-col justify-between" id="dezenfeksiyon">
           <div>
-            <div class="h-52 overflow-hidden bg-slate-100 relative">
-              <img src="https://images.pexels.com/photos/8292797/pexels-photo-8292797.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Dezenfeksiyon" class="w-full h-full object-cover">
-              <span class="absolute top-3 right-3 bg-hijyon-forest/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Antiviral</span>
+            <div class="h-56 overflow-hidden bg-slate-100 relative">
+              <img src="https://images.pexels.com/photos/8292797/pexels-photo-8292797.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Dezenfeksiyon" class="w-full h-full object-cover">
+              <span class="absolute top-4 right-4 bg-emerald-600 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md">Antiviral & Hijyen</span>
             </div>
-            <div class="p-6">
-              <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="shield-check" class="w-5 h-5 text-hijyon-gold"></i> DEZENFEKSİYON</h3>
-              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-                Ev ve ofislerde virüs ve bakterilere karşı yüzey arındırması. Yaşam alanlarınızda uygun uygulama planına göre hijyen desteği sağlar.
+            <div class="p-7">
+              <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="shield-check" class="w-5 h-5 text-hijyon-gold"></i> ORTAM DEZENFEKSİYONU</h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-medium">
+                Ev, okul ve ofislerde virüs ve bakterilere karşı yüzey arındırması. Yaşam alanlarınızda mikropsuz, hijyenik ve taze bir ortam sunar.
               </p>
             </div>
           </div>
-          <div class="px-6 pb-6 pt-2">
-            <a href="#iletisim" class="inline-flex items-center gap-1.5 text-xs font-extrabold text-hijyon-emerald hover:text-hijyon-forest transition-colors">
-              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <div class="px-7 pb-7 pt-2">
+            <a href="#iletisim" class="inline-flex items-center gap-2 text-xs font-black text-emerald-700 hover:text-emerald-900 transition-colors">
+              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
         </article>
 
         <!-- Kart 4: ULV Sisleme -->
-        <article class="service-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between" id="ulv-sistemleri">
+        <article class="service-card-pro bg-white rounded-3xl overflow-hidden border-2 border-emerald-100 shadow-card-elevated flex flex-col justify-between" id="ulv-sistemleri">
           <div>
-            <div class="h-52 overflow-hidden bg-slate-100 relative">
-              <img src="https://images.pexels.com/photos/14399485/pexels-photo-14399485.jpeg?auto=compress&cs=tinysrgb&w=600" alt="ULV Sisleme" class="w-full h-full object-cover">
-              <span class="absolute top-3 right-3 bg-hijyon-gold text-hijyon-deep text-[10px] font-bold px-2.5 py-1 rounded-full">Mikro Partikül</span>
+            <div class="h-56 overflow-hidden bg-slate-100 relative">
+              <img src="https://images.pexels.com/photos/14399485/pexels-photo-14399485.jpeg?auto=compress&cs=tinysrgb&w=700" alt="ULV Sisleme" class="w-full h-full object-cover">
+              <span class="absolute top-4 right-4 bg-blue-600 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md">Mikro Partikül</span>
             </div>
-            <div class="p-6">
+            <div class="p-7">
               <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="wind" class="w-5 h-5 text-hijyon-gold"></i> ULV SOĞUK SİSLEME</h3>
-              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-                Havada asılı kalan mikronize sis ile ulaşılması zor çatlak ve havalandırmalarda hedefe yönelik haşere ve hijyen uygulamasına destek olur.
+              <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-medium">
+                Havada asılı kalan mikronize sisleme ile havalandırma boşlukları, çatlaklar ve girilemeyen tüm kör noktalarda derinlemesine dezenfeksiyon.
               </p>
             </div>
           </div>
-          <div class="px-6 pb-6 pt-2">
-            <a href="#iletisim" class="inline-flex items-center gap-1.5 text-xs font-extrabold text-hijyon-emerald hover:text-hijyon-forest transition-colors">
-              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <div class="px-7 pb-7 pt-2">
+            <a href="#iletisim" class="inline-flex items-center gap-2 text-xs font-black text-emerald-700 hover:text-emerald-900 transition-colors">
+              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
         </article>
 
-        <!-- Kart 5: Depo ve İşletme -->
-        <article class="service-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+        <!-- Kart 5: Depo ve Gıda Tesisleri -->
+        <article class="service-card-pro bg-white rounded-3xl overflow-hidden border-2 border-emerald-100 shadow-card-elevated flex flex-col justify-between">
           <div>
-            <div class="h-52 overflow-hidden bg-slate-100 relative">
-              <img src="https://images.pexels.com/photos/6439698/pexels-photo-6439698.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Depo İlaçlama" class="w-full h-full object-cover">
-              <span class="absolute top-3 right-3 bg-hijyon-forest/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Kurumsal</span>
+            <div class="h-56 overflow-hidden bg-slate-100 relative">
+              <img src="https://images.pexels.com/photos/6439698/pexels-photo-6439698.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Depo İlaçlama" class="w-full h-full object-cover">
+              <span class="absolute top-4 right-4 bg-emerald-700 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md">Endüstriyel</span>
             </div>
-            <div class="p-6">
-              <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="building-2" class="w-5 h-5 text-hijyon-gold"></i> DEPO & İŞLETME</h3>
-              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-                Lojistik depolar ve endüstriyel tesisler için düzenli vardiya dışı periyodik koruma ve kemirgen kontrol istasyonları.
+            <div class="p-7">
+              <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="building-2" class="w-5 h-5 text-hijyon-gold"></i> DEPO & TOPTAN GIDA</h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-medium">
+                İstoç, Megacenter ve lojistik tesisler için kemirgen istasyonları, yemleme ve düzenli periyodik haşere takip defteri hazırlanması.
               </p>
             </div>
           </div>
-          <div class="px-6 pb-6 pt-2">
-            <a href="#iletisim" class="inline-flex items-center gap-1.5 text-xs font-extrabold text-hijyon-emerald hover:text-hijyon-forest transition-colors">
-              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <div class="px-7 pb-7 pt-2">
+            <a href="#iletisim" class="inline-flex items-center gap-2 text-xs font-black text-emerald-700 hover:text-emerald-900 transition-colors">
+              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
         </article>
 
         <!-- Kart 6: Çatı Boşluğu & Destekleyici -->
-        <article class="service-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between" id="cati-temizligi">
+        <article class="service-card-pro bg-white rounded-3xl overflow-hidden border-2 border-emerald-100 shadow-card-elevated flex flex-col justify-between" id="cati-temizligi">
           <div>
-            <div class="h-52 overflow-hidden bg-slate-100 relative">
-              <img src="https://images.pexels.com/photos/32055757/pexels-photo-32055757.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Çatı Temizliği" class="w-full h-full object-cover">
-              <span class="absolute top-3 right-3 bg-hijyon-forest/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Hijyen Desteği</span>
+            <div class="h-56 overflow-hidden bg-slate-100 relative">
+              <img src="https://images.pexels.com/photos/32055757/pexels-photo-32055757.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Çatı Temizliği" class="w-full h-full object-cover">
+              <span class="absolute top-4 right-4 bg-amber-600 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md">Derin Temizlik</span>
             </div>
-            <div class="p-6">
-              <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="house" class="w-5 h-5 text-hijyon-gold"></i> ÇATI İÇİ & DESTEKLEYİCİ</h3>
-              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-                Bina içi tavan arası boşluklarının hijyeni ve ilaçlaması ile uygulama öncesi/sonrası detaylı mekanik arındırma.
+            <div class="p-7">
+              <h3 class="text-lg font-black text-hijyon-forest tracking-tight flex items-center gap-2"><i data-lucide="home" class="w-5 h-5 text-hijyon-gold"></i> ÇATI İÇİ TEMİZLİK</h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-medium">
+                Tavan arası boşluklarının endüstriyel vakumla kuş pisliği ve atıklardan arındırılması ve ardından koruyucu bariyer ilaçlaması yapılması.
               </p>
             </div>
           </div>
-          <div class="px-6 pb-6 pt-2">
-            <a href="#iletisim" class="inline-flex items-center gap-1.5 text-xs font-extrabold text-hijyon-emerald hover:text-hijyon-forest transition-colors">
-              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <div class="px-7 pb-7 pt-2">
+            <a href="#iletisim" class="inline-flex items-center gap-2 text-xs font-black text-emerald-700 hover:text-emerald-900 transition-colors">
+              <span>Hemen Teklif Al</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
         </article>
@@ -591,110 +607,153 @@
   </section>
 
   <!-- ========================================================
-       8. ÖNCESİ VE SONRASI İNTERAKTİF SÜRGÜ
+       7. RESMİ EK-1 BELGESİ & KORUMA
        ======================================================== -->
-  <section id="oncesi-sonrasi" class="py-16 sm:py-24 bg-hijyon-forest text-white border-b border-hijyon-deep">
+  <section class="py-16 sm:py-20 bg-white border-b border-emerald-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-5 text-center sm:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-wider border border-emerald-200">
+            <i data-lucide="file-check-2" class="w-4 h-4 text-emerald-700"></i> %100 YASAL & DENETİME HAZIR
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-black text-hijyon-forest font-serif leading-tight">
+            Resmi Biyosidal EK-1 Uygulama Belgesi
+          </h2>
+          <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-medium">
+            Tarım ve Sağlık Bakanlığı mevzuatına tam uyumlu şekilde, her uygulama sonrası karekodlu ve kaşeli resmi <strong>EK-1 Biyosidal Ürün Uygulama Belgesi</strong> teslim edilir. Denetimlerde hiçbir sorun yaşamazsınız.
+          </p>
+          <div class="p-6 rounded-3xl bg-gradient-to-r from-amber-50 to-emerald-50 border-2 border-hijyon-gold inline-block text-left shadow-md">
+            <span class="text-hijyon-forest font-black text-xl sm:text-2xl tracking-wide block">
+              ★ RESMİ EK-1 BELGELENDİRME DESTEĞİ
+            </span>
+            <span class="text-xs sm:text-sm text-slate-700 block mt-1.5 font-bold">
+              İlgili sağlık mevzuatı, mesul müdür onayı ve yetki kapsamına tam uygun yasal dokümantasyon.
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-emerald-200 bg-slate-100">
+            <img src="https://images.pexels.com/photos/9858904/pexels-photo-9858904.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                 alt="Resmi Biyosidal Belgelendirme" 
+                 class="w-full h-[320px] sm:h-[360px] object-cover">
+            <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl border border-emerald-200 text-hijyon-forest text-xs font-black shadow-lg flex items-center gap-2">
+              <i data-lucide="stamp" class="w-4 h-4 text-hijyon-gold"></i> RESMİ EK-1 UYGULAMA DOSYASI
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       8. ÖNCESİ VE SONRASI İNTERAKTİF SÜRGÜ (DEPO & İLAÇLAMA KONSEPTİ)
+       ======================================================== -->
+  <section id="oncesi-sonrasi" class="py-16 sm:py-24 bg-gradient-to-br from-hijyon-night via-hijyon-deep to-hijyon-forest text-white border-b border-emerald-500/20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
       
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <span class="text-xs font-black text-hijyon-gold tracking-widest uppercase block">GÖZLE GÖRÜLÜR ETKİ</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold font-serif mt-2">Öncesi ve Sonrası</h2>
-        <p class="text-slate-300 text-sm sm:text-base mt-2">
-          Profesyonel ilaçlama ve derinlemesine arındırma farkını ortadaki imleci sağa veya sola kaydırarak karşılaştırın.
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-black text-hijyon-goldLight tracking-widest uppercase block">20 YILLIK KANITLANMIŞ SAHA FARKI</span>
+        <h2 class="text-3xl sm:text-4xl font-black font-serif mt-2">Depo İlaçlama Öncesi ve Sonrası</h2>
+        <p class="text-emerald-100 text-sm sm:text-base mt-2 font-medium">
+          Personelimizin depoda haşerelere yaptığı doğrudan müdahaleyi ve uygulama sonrasında böceklerden tamamen arındırılmış temiz alanı sürgüyle karşılaştırın.
         </p>
       </div>
 
-      <div class="ba-container aspect-[16/10] sm:aspect-[16/9] rounded-2xl border-2 border-hijyon-gold/50 shadow-2xl bg-black">
-        <!-- Katman 1: Sonrası -->
-        <img src="https://images.pexels.com/photos/6196692/pexels-photo-6196692.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-             alt="Profesyonel temizlenmiş alan" 
+      <div class="ba-container aspect-[16/10] sm:aspect-[16/9] rounded-3xl border-2 border-hijyon-gold shadow-glow-emerald bg-black">
+        <!-- Katman 1: Sonrası (Temizlenmiş, Ölü Böceklerden Arındırılmış Steril Depo) -->
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80" 
+             alt="HİJYONET İlaçlama Sonrası Temiz ve Haşerelerden Arındırılmış Depo Alanı" 
              class="ba-img">
-        <span class="absolute top-4 right-4 bg-hijyon-deep/90 text-white text-[11px] font-black px-3 py-1 rounded-md border border-white/20 z-10">
-          SONRASI
+        <span class="absolute top-4 right-4 bg-hijyon-deep/95 text-hijyon-neon text-xs font-black px-4 py-2 rounded-xl border border-hijyon-neon/40 z-10 shadow-lg flex items-center gap-1.5">
+          <i data-lucide="check-circle-2" class="w-4 h-4"></i> SONRASI: ÖLMÜŞ BÖCEKLER & ARINDIRILMIŞ TEMİZ ALAN
         </span>
 
-        <!-- Katman 2: Öncesi -->
+        <!-- Katman 2: Öncesi (Depoda İlaçlama Yapan Personel ve Böcek İstilası Olan Alan) -->
         <div id="baBeforeWrap" class="ba-before-wrapper">
-          <img src="https://images.pexels.com/photos/11211127/pexels-photo-11211127.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-               alt="Temizlenmemiş kirli alan" 
+          <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=1200&q=80" 
+               alt="Depoda İlaçlama Yapan Personel ve Böcek Olan Alan" 
                class="ba-img">
-          <span class="absolute top-4 left-4 bg-hijyon-gold text-hijyon-deep text-[11px] font-black px-3 py-1 rounded-md z-10 shadow">
-            ÖNCESİ
+          <span class="absolute top-4 left-4 bg-gradient-to-r from-hijyon-gold to-amber-500 text-hijyon-night text-xs font-black px-4 py-2 rounded-xl z-10 shadow-lg flex items-center gap-1.5">
+            <i data-lucide="bug" class="w-4 h-4"></i> ÖNCESİ: BÖCEK İSTİLASI & İLAÇLAMA YAPAN PERSONEL
           </span>
         </div>
 
         <!-- Slider Çizgi ve Tutamaç -->
         <div id="baLine" class="ba-line"></div>
         <div id="baHandle" class="ba-handle-btn" aria-hidden="true">
-          <i data-lucide="chevrons-left-right" class="w-5 h-5"></i>
+          <i data-lucide="chevrons-left-right" class="w-6 h-6 text-hijyon-night"></i>
         </div>
 
-        <input type="range" id="baInput" min="0" max="100" value="50" class="ba-range" aria-label="Öncesi ve Sonrası Karşılaştırması">
+        <input type="range" id="baInput" min="0" max="100" value="50" class="ba-range" aria-label="Depo Öncesi ve Sonrası Karşılaştırması">
       </div>
 
-      <div class="mt-4 flex items-center justify-between text-xs text-slate-300 font-semibold px-2">
-        <span class="flex items-center gap-1 text-hijyon-gold"><i data-lucide="arrow-left" class="w-4 h-4"></i> Sola çek: Öncesi</span>
-        <span class="flex items-center gap-1 text-hijyon-bright">Sağa çek: Sonrası <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+      <div class="mt-5 flex items-center justify-between text-xs text-emerald-200 font-bold px-2">
+        <span class="flex items-center gap-1.5 text-hijyon-goldLight"><i data-lucide="arrow-left" class="w-4 h-4"></i> Sola çek: İlaçlama Yapan Personel & Böcekler</span>
+        <span class="flex items-center gap-1.5 text-hijyon-neon">Sağa çek: Etkisiz Zararlılar & Temiz Depo <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
       </div>
 
     </div>
   </section>
 
   <!-- ========================================================
-       9. GENİŞ SERVİS AĞI KARTI
+       9. GENİŞ SERVİS AĞI
        ======================================================== -->
-  <section class="py-16 sm:py-24 bg-hijyon-surface border-b border-slate-200">
+  <section id="servis-agi" class="py-16 sm:py-24 bg-white border-b border-emerald-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         
-        <!-- ÖZEL KARE KART -->
         <div class="lg:col-span-6 flex justify-center">
-          <div class="w-full max-w-[480px] aspect-square rounded-3xl p-8 sm:p-10 flex flex-col justify-between shadow-xl relative overflow-hidden border-2 border-emerald-300 bg-hijyon-herbal">
+          <div class="w-full max-w-[500px] aspect-square rounded-3xl p-8 sm:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden border-2 border-emerald-400 bg-gradient-to-br from-emerald-50 via-emerald-100/50 to-amber-50">
+            
             <div class="relative z-10 flex items-center justify-between">
-              <span class="inline-flex items-center gap-1.5 bg-hijyon-forest text-white text-xs font-black px-3.5 py-1.5 rounded-full shadow">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-hijyon-gold"></i> Hizmet Bölgesi
+              <span class="inline-flex items-center gap-2 bg-hijyon-forest text-white text-xs font-black px-4 py-2 rounded-full shadow-md">
+                <i data-lucide="map-pin" class="w-4 h-4 text-hijyon-gold"></i> Hizmet Ağı
               </span>
-              <span class="w-10 h-10 rounded-full bg-white/75 flex items-center justify-center text-hijyon-forest shadow-sm">
-                <i data-lucide="compass" class="w-5 h-5"></i>
+              <span class="w-11 h-11 rounded-2xl bg-white flex items-center justify-center text-hijyon-forest shadow-md border border-emerald-200">
+                <i data-lucide="compass" class="w-6 h-6 text-emerald-600"></i>
               </span>
             </div>
 
-            <div class="relative z-10 space-y-2">
-              <span class="text-xs font-black tracking-widest text-emerald-900 uppercase">GENİŞ SERVİS AĞI</span>
+            <div class="relative z-10 space-y-3">
+              <span class="text-xs font-black tracking-widest text-emerald-900 uppercase">20 YILDIR KESİNTİSİZ HİZMET</span>
               <h3 class="text-3xl sm:text-4xl font-black font-serif text-hijyon-forest leading-tight">
-                İSTANBUL VE 9 ÇEVRE İL
+                İSTANBUL (39 İLÇE) VE 9 ÇEVRE İL
               </h3>
-              <p class="text-xs sm:text-sm font-semibold text-hijyon-herbalText leading-relaxed">
-                İstanbul genelinde 39 ilçeye; ayrıca Kocaeli, Tekirdağ, Yalova, Bursa, Kırklareli, Sakarya, Edirne, Düzce ve Bolu illerine uygunluk planlamasına göre kesintisiz hizmet sağlamaktayız.
+              <p class="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed">
+                İstanbul genelinde 39 ilçeye; ayrıca Kocaeli, Tekirdağ, Yalova, Bursa, Kırklareli, Sakarya, Edirne, Düzce ve Bolu illerine mobil ekiplerimizle randevulu garantili servis sağlıyoruz.
               </p>
             </div>
 
-            <div class="relative z-10 pt-4 border-t border-emerald-400/40 flex flex-wrap gap-2 text-[11px] font-extrabold text-hijyon-forest">
-              <span class="bg-white/85 px-2.5 py-1 rounded-lg">İstanbul (39 İlçe)</span>
-              <span class="bg-hijyon-gold text-hijyon-deep px-2.5 py-1 rounded-lg">Kocaeli</span>
-              <span class="bg-hijyon-gold text-hijyon-deep px-2.5 py-1 rounded-lg">Tekirdağ</span>
-              <span class="bg-white/85 px-2.5 py-1 rounded-lg">Yalova / Bursa</span>
-              <span class="bg-white/85 px-2.5 py-1 rounded-lg">Sakarya</span>
-              <span class="bg-white/85 px-2.5 py-1 rounded-lg">Edirne / Kırklareli</span>
-              <span class="bg-white/85 px-2.5 py-1 rounded-lg">Düzce / Bolu</span>
+            <div class="relative z-10 pt-4 border-t border-emerald-300 flex flex-wrap gap-2 text-xs font-black text-hijyon-forest">
+              <span class="bg-white px-3 py-1.5 rounded-xl border border-emerald-200 shadow-sm">İstanbul (39 İlçe)</span>
+              <span class="bg-hijyon-gold text-hijyon-night px-3 py-1.5 rounded-xl shadow-sm">Kocaeli</span>
+              <span class="bg-hijyon-gold text-hijyon-night px-3 py-1.5 rounded-xl shadow-sm">Tekirdağ</span>
+              <span class="bg-white px-3 py-1.5 rounded-xl border border-emerald-200 shadow-sm">Bursa</span>
+              <span class="bg-white px-3 py-1.5 rounded-xl border border-emerald-200 shadow-sm">Yalova</span>
+              <span class="bg-white px-3 py-1.5 rounded-xl border border-emerald-200 shadow-sm">Sakarya</span>
+              <span class="bg-white px-3 py-1.5 rounded-xl border border-emerald-200 shadow-sm">Edirne / Kırklareli</span>
+              <span class="bg-white px-3 py-1.5 rounded-xl border border-emerald-200 shadow-sm">Düzce / Bolu</span>
             </div>
           </div>
         </div>
 
-        <div class="lg:col-span-6 space-y-5 text-center sm:text-left">
-          <span class="text-xs font-black text-hijyon-emerald uppercase tracking-widest block">SÜREÇ YÖNETİMİ & ORGANİZASYON</span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold font-serif text-hijyon-forest">
-            Hızlı Planlama ve Garantili Uygulama
+        <div class="lg:col-span-6 space-y-6 text-center sm:text-left">
+          <span class="text-xs font-black text-emerald-700 uppercase tracking-widest block">EKSPRES PLANLAMA</span>
+          <h2 class="text-3xl sm:text-4xl font-black font-serif text-hijyon-forest">
+            Aynı Gün Müdahale ve Kurumsal Takip
           </h2>
-          <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
-            HİJYONET merkezimizden ileteceğiniz metrekare ve mekan bilgisine dayanarak doğrudan özel çözümler üretiyor ve randevu programımızı en kısa sürede koordine ediyoruz.
+          <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-medium">
+            Alanınızın büyüklüğünü (m²) ve mekan türünü WhatsApp teklif formumuzdan ilettiğiniz anda en ekonomik ve kesin çözüm odaklı ilaçlama reçeteniz çıkartılır.
           </p>
-          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 text-xs sm:text-sm text-slate-700 leading-relaxed shadow-sm">
-            Toplu konutlar, endüstriyel tesisler ve gıda işletmeleri için yerinde keşif ile dönemsel/periyodik EK-1 belgeli sözleşme desteği sağlanmaktadır.
+          <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-5 text-xs sm:text-sm text-slate-800 leading-relaxed shadow-sm font-semibold">
+            Zincir restoranlar ve gıda toptancıları için düzenli periyodik denetim sözleşmesi ve resmi EK-1 biyosidal dosyalama desteği sağlanmaktadır.
           </div>
           <div class="pt-2">
-            <a href="#iletisim" class="btn-shimmer inline-flex items-center gap-2 bg-hijyon-forest hover:bg-hijyon-deep text-white font-extrabold text-xs sm:text-sm px-7 py-4 rounded-xl shadow transition">
-              <i data-lucide="calculator" class="w-4 h-4"></i> METREKAREYE GÖRE TEKLİF AL
+            <a href="#iletisim" class="btn-glow inline-flex items-center gap-2.5 bg-hijyon-forest hover:bg-hijyon-deep text-white font-black text-xs sm:text-sm px-8 py-4 rounded-2xl shadow-xl transition">
+              <i data-lucide="calculator" class="w-4 h-4 text-hijyon-gold"></i> METREKAREYE GÖRE TEKLİF AL
             </a>
           </div>
         </div>
@@ -704,122 +763,194 @@
   </section>
 
   <!-- ========================================================
-       10. MÜŞTERİ YORUMLARI
+       10. SEÇKİN REFERANSLARIMIZ (SAYFA SONUNA DOĞRU KONUMLANDIRILDI)
        ======================================================== -->
-  <section id="yorumlar" class="py-16 sm:py-24 bg-hijyon-surface border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-black text-hijyon-emerald uppercase tracking-widest block">GÖRÜŞLER & REFERANSLAR</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold font-serif text-hijyon-forest mt-2">Müşteri Yorumları</h2>
+  <section id="referanslar" class="py-16 sm:py-24 bg-gradient-to-b from-[#F3FAF6] to-white border-b border-emerald-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      
+      <div class="max-w-3xl mx-auto text-center mb-14">
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-widest border border-emerald-200">
+          <i data-lucide="building-2" class="w-4 h-4 text-emerald-700"></i> 20 YILLIK PRESTİJLİ ÇÖZÜM ORTAKLARI
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black font-serif text-hijyon-forest mt-3 leading-tight">
+          Bizi Tercih Eden Değerli Referanslarımız
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed mt-4 max-w-2xl mx-auto font-medium">
+          Gıda sektörünün devi restoranlardan üretim tesislerine, düğün salonlarından toptancılara kadar Türkiye'nin önde gelen işletmeleri 20 yıldır HİJYONET'e güveniyor.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <article class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="flex items-center gap-1 text-hijyon-gold mb-3">
-              <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
-              "Restoranımızın mutfağında jel ilaçlama yapıldı. Kesinlikle koku olmadı ve işletmeyi kapatmak zorunda kalmadık. Uygulama sonunda resmi EK-1 belgemizi kaşeleyip verdiler, denetimden sorunsuz geçtik."
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-            <span class="font-extrabold text-hijyon-forest">Murat K.</span>
-            <span class="text-slate-500 font-medium">Restoran / Kadıköy</span>
-          </div>
-        </article>
+      <!-- Kategori ve Bölge Bazlı Referans Grid'i -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <article class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="flex items-center gap-1 text-hijyon-gold mb-3">
-              <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
-              "Evimizdeki haşere sorunu için başvurduk. Evden çıkmamıza hiç gerek kalmadı. Avrupa menşeili jel uygulaması yaptılar; çok kısa sürede kesin çözüm aldık."
-            </p>
+        <!-- Bölge: Beyoğlu & Taksim -->
+        <div class="bg-white rounded-3xl p-7 border-2 border-emerald-100 hover:border-emerald-400 shadow-card-elevated transition duration-300">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+            <span class="font-serif font-black text-lg text-hijyon-forest flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-5 h-5 text-hijyon-gold"></i> Beyoğlu & Taksim
+            </span>
+            <span class="text-[11px] font-black bg-amber-50 text-amber-800 px-3 py-1 rounded-full border border-amber-200">Gastronomi</span>
           </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-            <span class="font-extrabold text-hijyon-forest">Selin A.</span>
-            <span class="text-slate-500 font-medium">Daire / Başakşehir</span>
-          </div>
-        </article>
+          <ul class="space-y-3 text-xs sm:text-sm font-bold text-slate-700">
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Wama's</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Monoburger</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> MADO (Taksim Meydan)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> MADO (Tünel)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> MADO (Galatasaray)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> MADO (Gümüşsuyu)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Pera Fırın</li>
+          </ul>
+        </div>
 
-        <article class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm flex flex-col justify-between">
-          <div>
-            <div class="flex items-center gap-1 text-hijyon-gold mb-3">
-              <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
-              "Depomuz ve ofislerimiz için dezenfeksiyon ve kemirgen kontrolü teklifi aldık. Randevu saatinde eksiksiz geldiler, işyeri dezenfeksiyonu çok profesyoneldi."
-            </p>
+        <!-- Bölge: Maslak 1453 & Beşiktaş -->
+        <div class="bg-white rounded-3xl p-7 border-2 border-emerald-100 hover:border-emerald-400 shadow-card-elevated transition duration-300">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+            <span class="font-serif font-black text-lg text-hijyon-forest flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-5 h-5 text-hijyon-gold"></i> Maslak 1453 & Beşiktaş
+            </span>
+            <span class="text-[11px] font-black bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">Elit Mekanlar</span>
           </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-            <span class="font-extrabold text-hijyon-forest">Ahmet T.</span>
-            <span class="text-slate-500 font-medium">Lojistik / Gebze</span>
+          <ul class="space-y-3 text-xs sm:text-sm font-bold text-slate-700">
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Eşref Kulüp (Maslak 1453)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Moon Shot</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> MADO (1453 Şubesi)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Chicken Rice Art</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> 1453 Cafe Restoran</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Ya Sonra (Beşiktaş Ortaköy)</li>
+          </ul>
+        </div>
+
+        <!-- Bölge: İstoç & Megacenter -->
+        <div class="bg-white rounded-3xl p-7 border-2 border-emerald-100 hover:border-emerald-400 shadow-card-elevated transition duration-300">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+            <span class="font-serif font-black text-lg text-hijyon-forest flex items-center gap-2">
+              <i data-lucide="boxes" class="w-5 h-5 text-hijyon-gold"></i> İstoç & Megacenter
+            </span>
+            <span class="text-[11px] font-black bg-amber-50 text-amber-800 px-3 py-1 rounded-full border border-amber-200">Gıda & Depolama</span>
           </div>
-        </article>
+          <ul class="space-y-3 text-xs sm:text-sm font-bold text-slate-700">
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Tudab (İstoç)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Tudab (Megacenter)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Bağcıoğlu</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Miss Baharat</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Anadolu Kuruyemiş</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Sezgin Baharat</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Aygören Peynircilik</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Yenigüzelce • Florya Şeker • Selka</li>
+          </ul>
+        </div>
+
+        <!-- Bölge: Beylikdüzü & Yakuplu -->
+        <div class="bg-white rounded-3xl p-7 border-2 border-emerald-100 hover:border-emerald-400 shadow-card-elevated transition duration-300">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+            <span class="font-serif font-black text-lg text-hijyon-forest flex items-center gap-2">
+              <i data-lucide="store" class="w-5 h-5 text-hijyon-gold"></i> Beylikdüzü & Yakuplu
+            </span>
+            <span class="text-[11px] font-black bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">Restoran Zincirleri</span>
+          </div>
+          <ul class="space-y-3 text-xs sm:text-sm font-bold text-slate-700">
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Hey Döner (Merkez)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Hey Döner (Yakuplu)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Hey Döner (Kavaklı)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Wow's Yakuplu</li>
+          </ul>
+        </div>
+
+        <!-- Bölge: İkitelli Sanayi -->
+        <div class="bg-white rounded-3xl p-7 border-2 border-emerald-100 hover:border-emerald-400 shadow-card-elevated transition duration-300">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+            <span class="font-serif font-black text-lg text-hijyon-forest flex items-center gap-2">
+              <i data-lucide="factory" class="w-5 h-5 text-hijyon-gold"></i> İkitelli & Sanayi Tesisleri
+            </span>
+            <span class="text-[11px] font-black bg-amber-50 text-amber-800 px-3 py-1 rounded-full border border-amber-200">Üretim & İmalat</span>
+          </div>
+          <ul class="space-y-3 text-xs sm:text-sm font-bold text-slate-700">
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> La Dore (İkitelli)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Efor Gıda</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Mis Döner</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Süttanbul</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Gedikoğlu Unlu Mamülleri (İkitelli)</li>
+          </ul>
+        </div>
+
+        <!-- Bölge: Çatalca & Çevre İlçeler -->
+        <div class="bg-white rounded-3xl p-7 border-2 border-emerald-100 hover:border-emerald-400 shadow-card-elevated transition duration-300">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+            <span class="font-serif font-black text-lg text-hijyon-forest flex items-center gap-2">
+              <i data-lucide="cake" class="w-5 h-5 text-hijyon-gold"></i> Çatalca & Çevre İlçeler
+            </span>
+            <span class="text-[11px] font-black bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">Etkinlik & Perakende</span>
+          </div>
+          <ul class="space-y-3 text-xs sm:text-sm font-bold text-slate-700">
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Gedikoğlu Unlu Mamülleri (Çatalca)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> İstanbul Kasabı (Çatalca)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> İstanbul Kasap Restoran (Çatalca)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> La Perla Wedding (Küçükçekmece)</li>
+            <li class="flex items-center gap-2.5"><span class="w-2 h-2 rounded-full bg-hijyon-bright"></span> Ales Gıda (Büyükçekmece)</li>
+          </ul>
+        </div>
 
       </div>
+
     </div>
   </section>
 
   <!-- ========================================================
-       11. SIKÇA SORULAN SORULAR (AKORDİYON)
+       11. SIKÇA SORULAN SORULAR
        ======================================================== -->
-  <section id="sss" class="py-16 sm:py-24 bg-white border-b border-slate-200">
+  <section id="sss" class="py-16 sm:py-24 bg-hijyon-surface border-b border-emerald-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-black text-hijyon-emerald uppercase tracking-widest block">MERAK EDİLENLER</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold font-serif text-hijyon-forest mt-2">Sıkça Sorulan Sorular</h2>
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-black text-emerald-700 uppercase tracking-widest block">MERAK EDİLENLER</span>
+        <h2 class="text-3xl sm:text-4xl font-black font-serif text-hijyon-forest mt-2">Sıkça Sorulan Sorular</h2>
       </div>
 
       <div class="space-y-4">
         
-        <article class="faq-item active bg-hijyon-surface rounded-xl border border-slate-200 shadow-sm">
-          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-extrabold text-hijyon-forest text-sm sm:text-base">
-            <span>Jel ilaçlamada evden çıkmak gerekir mi?</span>
-            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
+        <article class="faq-item active bg-white rounded-2xl border-2 border-emerald-100 shadow-sm p-1">
+          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-black text-hijyon-forest text-sm sm:text-base">
+            <span>Jel ilaçlamada evden veya mutfaktan çıkmak gerekir mi?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-emerald-600 transition-transform"></i>
           </button>
           <div class="faq-body">
-            <div class="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/50 mt-2">
-              Hayır, jel ilaçlamada evden veya mutfaktan çıkmaya kesinlikle gerek yoktur. Avrupa menşeili formüller kokusuzdur, leke bırakmaz ve havaya karışmaz; günlük yaşantınızı sürdürürken işlem konforlu bir şekilde tamamlanır.
+            <div class="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 mt-2 font-medium">
+              Hayır, kesinlikle çıkmanıza gerek yoktur. Jel ilaçlarımız Avrupa menşeili olup kokusuzdur, leke bırakmaz ve havaya karışmaz. Uygulama esnasında günlük hayatınıza veya restoran operasyonunuza kesintisiz devam edebilirsiniz.
             </div>
           </div>
         </article>
 
-        <article class="faq-item bg-hijyon-surface rounded-xl border border-slate-200 shadow-sm">
-          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-extrabold text-hijyon-forest text-sm sm:text-base">
-            <span>Hangi şehir ve bölgelere hizmet veriyorsunuz?</span>
-            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
+        <article class="faq-item bg-white rounded-2xl border-2 border-emerald-100 shadow-sm p-1">
+          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-black text-hijyon-forest text-sm sm:text-base">
+            <span>HİJYONET kaç yıldır sektörde hizmet vermektedir?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-emerald-600 transition-transform"></i>
           </button>
           <div class="faq-body">
-            <div class="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/50 mt-2">
-              İstanbul genelinde 39 ilçeye; ayrıca Kocaeli, Tekirdağ, Yalova, Bursa, Kırklareli, Sakarya, Edirne, Düzce ve Bolu illerine uygunluk planlamasına göre kesintisiz profesyonel hizmet sağlamaktayız.
+            <div class="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 mt-2 font-medium">
+              20 yılı aşkın sektörel deneyimimizle İstanbul ve Marmara Bölgesi genelinde yüzlerce zincir markanın, toptancının ve binlerce konutun resmi haşere kontrol ve dezenfeksiyon partneriyiz.
             </div>
           </div>
         </article>
 
-        <article class="faq-item bg-hijyon-surface rounded-xl border border-slate-200 shadow-sm">
-          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-extrabold text-hijyon-forest text-sm sm:text-base">
-            <span>Uygulama sonrası resmi belge (EK-1) veriliyor mu?</span>
-            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
+        <article class="faq-item bg-white rounded-2xl border-2 border-emerald-100 shadow-sm p-1">
+          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-black text-hijyon-forest text-sm sm:text-base">
+            <span>Uygulama sonrasında resmi EK-1 belgesi veriliyor mu?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-emerald-600 transition-transform"></i>
           </button>
           <div class="faq-body">
-            <div class="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/50 mt-2">
-              Evet. Kurumsal ve ticari işletmelerin uygulamanın niteliğine ve yetki kapsamına göre düzenlenen ilgili uygulama belgesi, uygulama sonrası mesul müdür onaylı ve kaşeli olarak tarafınıza teslim edilir.
+            <div class="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 mt-2 font-medium">
+              Evet. Tüm kurumsal ve gıda işletmelerine, Sağlık Bakanlığı ve Tarım Bakanlığı denetimlerine uygun karekodlu, mesul müdür onaylı EK-1 Biyosidal Uygulama Belgesi eksiksiz teslim edilir.
             </div>
           </div>
         </article>
 
-        <article class="faq-item bg-hijyon-surface rounded-xl border border-slate-200 shadow-sm">
-          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-extrabold text-hijyon-forest text-sm sm:text-base">
-            <span>Çatı boşluğu temizliği neleri kapsar?</span>
-            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
+        <article class="faq-item bg-white rounded-2xl border-2 border-emerald-100 shadow-sm p-1">
+          <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 font-black text-hijyon-forest text-sm sm:text-base">
+            <span>Formda paylaştığım kişisel veriler nasıl korunuyor? (KVKK)</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-emerald-600 transition-transform"></i>
           </button>
           <div class="faq-body">
-            <div class="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/50 mt-2">
-              Hizmetimiz yalnızca bina içi tavan arası ve yalıtım boşluklarını kapsamaktadır. Kuş pislikleri, eski atıklar, toz ve haşere yuvalanmaları endüstriyel vakumla arındırılır, ardından koruyucu ilaçlama uygulanır.
+            <div class="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 mt-2 font-medium">
+              6698 sayılı KVKK kapsamında bilgileriniz sadece alanınıza özel fiyat teklifi sunmak ve randevu organize etmek amacıyla işlenir. Asla reklam amaçlı üçüncü kişilerle paylaşılmaz.
             </div>
           </div>
         </article>
@@ -829,63 +960,83 @@
   </section>
 
   <!-- ========================================================
-       12. İLETİŞİM & TEKLİF FORMU (METREKARE BAZLI)
+       12. İLETİŞİM, METREKARE TEKLİF & KVKK FORMU
        ======================================================== -->
-  <section id="iletisim" class="py-16 sm:py-24 bg-hijyon-deep border-b border-slate-200">
+  <section id="iletisim" class="py-16 sm:py-24 bg-gradient-to-br from-hijyon-night via-hijyon-deep to-hijyon-forest border-b border-emerald-500/20 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
-        <!-- Sol İletişim / Bilgi -->
-        <div class="lg:col-span-5 space-y-6 text-white">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-hijyon-gold/20 text-hijyon-gold text-xs font-black uppercase tracking-widest border border-hijyon-gold/40">
-            <i data-lucide="calculator" class="w-4 h-4"></i> METREKAREYE GÖRE TEKLİF
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold font-serif text-white">
-            Uzmanımızdan WhatsApp Yoluyla <span class="text-hijyon-gold">Teklif Alın</span>
+        <!-- Sol İletişim / Güven Detayları -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 text-hijyon-neon text-xs font-black uppercase tracking-widest border border-emerald-400/40">
+            <i data-lucide="calculator" class="w-4 h-4"></i> ANINDA METREKARE HESABI
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black font-serif text-white leading-tight">
+            20 Yıllık Tecrübeyle <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-hijyon-goldLight to-amber-400">Teklif Alın</span>
           </h2>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            İlaçlama yapılacak alanın büyüklüğünü (m²) ve mekan tipini form üzerinden iletin; resmi mevzuata tam uygun haşere kontrol ve dezenfeksiyon planınızı hemen hazırlayalım.
+          <p class="text-emerald-100/90 text-sm sm:text-base leading-relaxed font-medium">
+            Alanınızın metrekaresini ve hizmet tipini formu doldurarak iletin; uzmanlarımız resmi yönetmeliklere uygun en avantajlı fiyat teklifini WhatsApp üzerinden dakikalar içinde ulaştırsın.
           </p>
 
           <div class="space-y-4 pt-2">
-            <a href="tel:05389898659" class="flex items-center gap-3.5 text-white font-extrabold text-sm sm:text-base p-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-hijyon-gold transition-colors">
-              <span class="w-10 h-10 rounded-lg bg-hijyon-forest text-hijyon-gold flex items-center justify-center shrink-0">
-                <i data-lucide="phone" class="w-5 h-5"></i>
+            <a href="tel:05389898659" class="flex items-center gap-4 text-white font-black text-sm sm:text-base p-4 rounded-2xl bg-white/5 border border-emerald-500/30 hover:border-hijyon-gold transition-colors">
+              <span class="w-12 h-12 rounded-xl bg-gradient-to-br from-hijyon-gold to-amber-500 text-hijyon-night flex items-center justify-center shrink-0 shadow-md">
+                <i data-lucide="phone" class="w-6 h-6"></i>
               </span>
-              <span>0538 989 86 59</span>
+              <div>
+                <span class="text-[11px] text-emerald-200 block font-bold">Hemen Arayın:</span>
+                <span class="text-lg">0538 989 86 59</span>
+              </div>
             </a>
-            <div class="flex items-center gap-3.5 text-slate-200 font-bold text-xs sm:text-sm p-3.5 rounded-xl bg-white/5 border border-white/10">
-              <span class="w-10 h-10 rounded-lg bg-hijyon-forest text-hijyon-gold flex items-center justify-center shrink-0">
-                <i data-lucide="map-pin" class="w-5 h-5"></i>
+
+            <div class="flex items-center gap-4 text-emerald-100 font-bold text-xs sm:text-sm p-4 rounded-2xl bg-white/5 border border-emerald-500/30">
+              <span class="w-12 h-12 rounded-xl bg-hijyon-forest text-hijyon-neon flex items-center justify-center shrink-0 border border-emerald-400/40 shadow-md">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
               </span>
-              <span>Bölge: İstanbul (39 İlçe) + 9 Çevre İl</span>
+              <div>
+                <span class="text-[11px] text-emerald-200 block font-bold">Hizmet Alanı:</span>
+                <span>İstanbul (39 İlçe) + 9 Çevre İl</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 text-emerald-100 font-bold text-xs sm:text-sm p-4 rounded-2xl bg-white/5 border border-emerald-500/30">
+              <span class="w-12 h-12 rounded-xl bg-hijyon-forest text-hijyon-gold flex items-center justify-center shrink-0 border border-emerald-400/40 shadow-md">
+                <i data-lucide="lock" class="w-6 h-6"></i>
+              </span>
+              <div>
+                <span class="text-[11px] text-emerald-200 block font-bold">Yasal Güvence:</span>
+                <span>Verileriniz 6698 Sayılı KVKK Kapsamında Korunur</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Sağ Form Kartı -->
+        <!-- Sağ Form Kartı (KVKK Onaylı) -->
         <div class="lg:col-span-7">
-          <form id="contactForm" class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
+          <form id="contactForm" class="bg-white p-7 sm:p-10 rounded-3xl shadow-2xl space-y-4 text-slate-800 border-2 border-emerald-200">
             <div>
-              <h3 class="text-xl font-black text-hijyon-forest">Teklif Talep Formu</h3>
-              <p class="text-xs text-slate-500 mt-1">Lütfen alan bilgilerinizi giriniz; hazırlanan plan WhatsApp üzerinden tarafınıza iletilecektir.</p>
+              <div class="flex items-center justify-between">
+                <h3 class="text-2xl font-black text-hijyon-forest font-serif">Metrekare Teklif Formu</h3>
+                <span class="text-[11px] font-black bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">Ücretsiz Analiz</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1 font-medium">Lütfen alan bilgilerinizi giriniz; teklifiniz WhatsApp üzerinden iletilecektir.</p>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="formName" class="block text-xs font-bold text-hijyon-forest mb-1.5">Adınız Soyadınız *</label>
-                <input type="text" id="formName" required placeholder="Ad Soyad" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-hijyon-emerald">
+                <input type="text" id="formName" required placeholder="Ad Soyad" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold focus:outline-none focus:border-emerald-600 transition">
               </div>
               <div>
                 <label for="formPhone" class="block text-xs font-bold text-hijyon-forest mb-1.5">Telefon Numarası *</label>
-                <input type="tel" id="formPhone" required placeholder="05XX XXX XX XX" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-hijyon-emerald">
+                <input type="tel" id="formPhone" required placeholder="05XX XXX XX XX" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold focus:outline-none focus:border-emerald-600 transition">
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="formCity" class="block text-xs font-bold text-hijyon-forest mb-1.5">Hizmet Bölgesi / İl *</label>
-                <select id="formCity" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold text-slate-700 focus:outline-none focus:border-hijyon-emerald">
+                <select id="formCity" required class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-bold text-slate-700 focus:outline-none focus:border-emerald-600 transition">
                   <option value="" disabled selected>İl Seçiniz</option>
                   <option value="İstanbul (39 İlçe)">İstanbul (39 İlçe)</option>
                   <option value="Kocaeli">Kocaeli</option>
@@ -901,45 +1052,56 @@
               </div>
               <div>
                 <label for="formType" class="block text-xs font-bold text-hijyon-forest mb-1.5">Mekan Türü *</label>
-                <select id="formType" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold text-slate-700 focus:outline-none focus:border-hijyon-emerald">
+                <select id="formType" required class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-bold text-slate-700 focus:outline-none focus:border-emerald-600 transition">
                   <option value="" disabled selected>Mekan Türü Seçiniz</option>
                   <option value="Ev / Daire / Villa">Ev / Daire / Villa</option>
-                  <option value="Ofis / İşyeri">Ofis / İşyeri</option>
                   <option value="Restoran & Kafe">Restoran & Kafe</option>
+                  <option value="Gıda Toptan / Depo">Gıda Toptan / Depo</option>
+                  <option value="Ofis / İşyeri">Ofis / İşyeri</option>
                   <option value="Depo & Fabrika">Depo & Fabrika</option>
                   <option value="Çatı / Tavan Arası">Çatı / Tavan Arası</option>
-                  <option value="Eğlence Mekanı">Eğlence Mekanı</option>
+                  <option value="Eğlence & Davet Alanı">Eğlence & Davet Alanı</option>
                 </select>
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="bg-[#fcfdfc] border-2 border-emerald-100 rounded-xl p-3">
-                <label for="formAreaM2" class="block text-xs font-black text-hijyon-forest mb-1.5">Alanın Büyüklüğü (m²) *</label>
+              <div class="bg-emerald-50/60 border-2 border-emerald-300 rounded-2xl p-3.5">
+                <label for="formAreaM2" class="block text-xs font-black text-hijyon-forest mb-1">Alanın Büyüklüğü (m²) *</label>
                 <div class="relative">
-                  <input type="number" id="formAreaM2" required min="1" step="1" inputmode="numeric" placeholder="Örn: 120" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 pr-10 text-xs sm:text-sm font-bold focus:outline-none focus:border-hijyon-emerald">
-                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-black text-slate-400">m²</span>
+                  <input type="number" id="formAreaM2" required min="1" step="1" inputmode="numeric" placeholder="Örn: 150" class="w-full bg-white border border-emerald-300 rounded-xl px-4 py-2.5 pr-10 text-xs sm:text-sm font-black focus:outline-none focus:border-emerald-600">
+                  <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-black text-emerald-800">m²</span>
                 </div>
               </div>
               <div>
                 <label for="formService" class="block text-xs font-bold text-hijyon-forest mb-1.5">Talep Edilen Hizmet *</label>
-                <select id="formService" required class="w-full h-[46px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-xs sm:text-sm font-semibold text-slate-700 focus:outline-none focus:border-hijyon-emerald mt-3">
+                <select id="formService" required class="w-full h-[50px] bg-slate-50 border-2 border-slate-200 rounded-xl px-4 text-xs sm:text-sm font-bold text-slate-700 focus:outline-none focus:border-emerald-600 transition">
                   <option value="" disabled selected>Hizmet Seçiniz</option>
                   <option value="Jel / Sıvı İlaçlama">Jel / Sıvı İlaçlama</option>
                   <option value="Ev / İşyeri Dezenfeksiyonu">Ev / İşyeri Dezenfeksiyonu</option>
                   <option value="ULV Soğuk Sisleme">ULV Soğuk Sisleme</option>
                   <option value="Çatı Boşluğu Temizliği">Çatı Boşluğu Temizliği</option>
+                  <option value="Periyodik İşletme Sözleşmesi">Periyodik İşletme Sözleşmesi (EK-1)</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label for="formMessage" class="block text-xs font-bold text-hijyon-forest mb-1.5">Ek Açıklama (İsteğe Bağlı)</label>
-              <textarea id="formMessage" rows="2" placeholder="Haşere türü veya ek notlar..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-hijyon-emerald"></textarea>
+              <label for="formMessage" class="block text-xs font-bold text-hijyon-forest mb-1.5">Ek Notlar (İsteğe Bağlı)</label>
+              <textarea id="formMessage" rows="2" placeholder="Haşere türü veya özel istekleriniz..." class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 transition"></textarea>
             </div>
 
-            <button type="submit" class="w-full btn-shimmer bg-hijyon-gold hover:bg-hijyon-goldLight text-hijyon-deep font-black py-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-transform active:scale-95">
-              <i data-lucide="message-circle" class="w-5 h-5 text-hijyon-deep"></i> WHATSAPP İLE TEKLİF AL
+            <!-- KVKK Onay Kutusu -->
+            <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-200 flex items-start gap-3">
+              <input type="checkbox" id="kvkkConsent" required class="mt-1 w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer">
+              <label for="kvkkConsent" class="text-[11px] sm:text-xs text-slate-600 leading-relaxed cursor-pointer select-none font-medium">
+                <span class="font-black text-hijyon-forest">KVKK Onayı:</span> İlettiğim iletişim bilgilerimin tarafıma teklif sunulması amacıyla 6698 sayılı Kişisel Verilerin Korunması Kanunu'na uygun olarak işlenmesini onaylıyorum.
+                <button type="button" id="openKvkkModalBtn" class="text-emerald-700 font-black underline hover:text-emerald-950 ml-1">Aydınlatma Metnini Oku</button>
+              </label>
+            </div>
+
+            <button type="submit" class="w-full btn-glow bg-gradient-to-r from-hijyon-gold to-amber-500 hover:from-amber-500 hover:to-hijyon-gold text-hijyon-night font-black py-4 rounded-2xl text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-glow-gold transition-transform active:scale-95">
+              <i data-lucide="message-circle" class="w-5 h-5 text-hijyon-night"></i> WHATSAPP İLE TEKLİF AL
             </button>
           </form>
         </div>
@@ -949,81 +1111,131 @@
   </section>
 
   <!-- ========================================================
-       13. FOOTER
+       13. KVKK AYDINLATMA METNİ MODALİ
        ======================================================== -->
-  <footer class="bg-hijyon-deep text-white pt-16 pb-12">
+  <div id="kvkkModal" class="fixed inset-0 z-[120] bg-black/70 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl max-h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      
+      <div class="p-5 sm:p-6 border-b border-emerald-100 flex items-center justify-between bg-emerald-50/50">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-hijyon-forest text-hijyon-gold flex items-center justify-center shadow-sm">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-base sm:text-lg font-black text-hijyon-forest font-serif">KVKK Aydınlatma Metni</h3>
+        </div>
+        <button type="button" id="closeKvkkModalBtn" class="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto text-xs sm:text-sm text-slate-600 space-y-4 leading-relaxed font-medium">
+        <p><strong>Veri Sorumlusu:</strong> HİJYONET Profesyonel İlaçlama ve Hijyen Çözümleri</p>
+        
+        <p>
+          6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) uyarınca, web sitemiz üzerinde yer alan teklif formu aracılığıyla sağladığınız ad, soyad, telefon ve mekan büyüklüğü verileri;
+        </p>
+
+        <ul class="list-disc pl-5 space-y-1 font-semibold text-slate-700">
+          <li>İlaçlama ve dezenfeksiyon hizmeti için metrekareye özel fiyat teklifinin hazırlanması,</li>
+          <li>Randevu ve operasyon sürecinin koordine edilmesi,</li>
+          <li>Yasal resmi EK-1 biyosidal belgelerinin eksiksiz düzenlenmesi amacıyla sınırlı olarak işlenmektedir.</li>
+        </ul>
+
+        <p>
+          Kişisel verileriniz hiçbir koşulda üçüncü şahıslara veya reklam platformlarına aktarılmaz. Bilgilerinizin silinmesini veya güncellenmesini <strong>0538 989 86 59</strong> üzerinden talep edebilirsiniz.
+        </p>
+      </div>
+
+      <div class="p-4 sm:p-5 border-t border-emerald-100 bg-slate-50 flex justify-end">
+        <button type="button" id="confirmKvkkBtn" class="px-6 py-2.5 bg-hijyon-forest hover:bg-hijyon-deep text-white font-bold text-xs sm:text-sm rounded-xl transition">
+          Okudum, Onaylıyorum
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       14. FOOTER
+       ======================================================== -->
+  <footer class="bg-hijyon-night text-white pt-16 pb-12 border-t border-emerald-500/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       
       <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        
         <div class="md:col-span-2 space-y-4">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-hijyon-forest flex items-center justify-center border border-white/10">
-              <i data-lucide="shield-check" class="w-6 h-6 text-hijyon-bright"></i>
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-hijyon-forest to-emerald-800 flex items-center justify-center border border-emerald-400/40 shadow-glow-emerald">
+              <i data-lucide="shield-check" class="w-6 h-6 text-hijyon-neon"></i>
             </div>
             <div>
               <span class="text-2xl font-black font-serif tracking-tight leading-none block">HİJYONET</span>
-              <span class="text-[9px] text-hijyon-gold font-bold uppercase tracking-widest block mt-0.5">İlaçlama & Profesyonel Hijyen</span>
+              <span class="text-[10px] text-hijyon-goldLight font-black uppercase tracking-widest block mt-1">20 Yılı Aşkın Güven & Profesyonel Hijyen</span>
             </div>
           </div>
-          <p class="text-xs text-slate-300 max-w-md leading-relaxed">
-            İstanbul ve çevre illerde alanınıza ve metrekarenize özel hazırlanan profesyonel haşere kontrolü, Avrupa menşeili sıvı ve jel ilaçlama, dezenfeksiyon sistemleri.
+          <p class="text-xs text-emerald-100/80 max-w-md leading-relaxed font-medium">
+            İstanbul ve Marmara genelinde alanınıza özel hazırlanan Avrupa menşeili kokusuz haşere kontrolü, dezenfeksiyon ve EK-1 belgeli kurumsal çözümler.
           </p>
-          <div class="pt-1">
-            <span class="inline-block bg-amber-400/20 text-hijyon-gold border border-hijyon-gold/40 text-[11px] font-black px-2.5 py-1 rounded">
-              ( BELGELENDİRME DESTEĞİ )
+          <div class="pt-2 flex flex-wrap gap-2">
+            <span class="inline-block bg-amber-400/20 text-hijyon-goldLight border border-amber-400/40 text-[11px] font-black px-3 py-1 rounded-xl">
+              EK-1 BELGELİ
+            </span>
+            <span class="inline-block bg-emerald-400/20 text-hijyon-neon border border-emerald-400/40 text-[11px] font-black px-3 py-1 rounded-xl">
+              6698 KVKK GÜVENCELİ
             </span>
           </div>
         </div>
 
         <div>
-          <h4 class="text-xs font-black uppercase text-hijyon-gold tracking-wider mb-4">Hizmetlerimiz</h4>
+          <h4 class="text-xs font-black uppercase text-hijyon-goldLight tracking-wider mb-4">Hizmetlerimiz</h4>
           <ul class="space-y-2.5 text-xs text-slate-300 font-semibold">
-            <li><a href="#ilaclama" class="hover:text-hijyon-bright transition-colors">Haşere Kontrolü</a></li>
-            <li><a href="#jel-ilaclama" class="hover:text-hijyon-bright transition-colors">Jel ve Sıvı İlaçlama</a></li>
-            <li><a href="#dezenfeksiyon" class="hover:text-hijyon-bright transition-colors">Dezenfeksiyon</a></li>
-            <li><a href="#ulv-sistemleri" class="hover:text-hijyon-bright transition-colors">ULV Soğuk Sisleme</a></li>
-            <li><a href="#cati-temizligi" class="hover:text-hijyon-bright transition-colors">Çatı Temizliği</a></li>
+            <li><a href="#ilaclama" class="hover:text-hijyon-neon transition-colors">Haşere Kontrolü</a></li>
+            <li><a href="#jel-ilaclama" class="hover:text-hijyon-neon transition-colors">Kokusuz Jel İlaçlama</a></li>
+            <li><a href="#dezenfeksiyon" class="hover:text-hijyon-neon transition-colors">Ortam Dezenfeksiyonu</a></li>
+            <li><a href="#ulv-sistemleri" class="hover:text-hijyon-neon transition-colors">ULV Soğuk Sisleme</a></li>
+            <li><a href="#cati-temizligi" class="hover:text-hijyon-neon transition-colors">Çatı İçi Temizlik</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="text-xs font-black uppercase text-hijyon-gold tracking-wider mb-4">İletişim & Bölge</h4>
+          <h4 class="text-xs font-black uppercase text-hijyon-goldLight tracking-wider mb-4">İletişim & Lokasyon</h4>
           <ul class="space-y-3 text-xs text-slate-300">
-            <li class="flex items-center gap-2">
-              <i data-lucide="phone" class="w-4 h-4 text-hijyon-gold"></i>
-              <a href="tel:05389898659" class="font-bold text-white hover:text-hijyon-gold">0538 989 86 59</a>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="phone" class="w-4 h-4 text-hijyon-goldLight"></i>
+              <a href="tel:05389898659" class="font-black text-white hover:text-hijyon-goldLight text-sm">0538 989 86 59</a>
             </li>
-            <li class="flex items-center gap-2">
+            <li class="flex items-center gap-2.5">
               <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
-              <a href="https://wa.me/905389898659" target="_blank" rel="noopener noreferrer" class="hover:text-white">WhatsApp Destek</a>
+              <a href="https://wa.me/905389898659" target="_blank" rel="noopener noreferrer" class="hover:text-white font-bold">WhatsApp 7/24 Destek</a>
             </li>
-            <li class="flex items-start gap-2">
-              <i data-lucide="map-pin" class="w-4 h-4 text-hijyon-gold shrink-0"></i>
+            <li class="flex items-start gap-2.5">
+              <i data-lucide="map-pin" class="w-4 h-4 text-hijyon-goldLight shrink-0"></i>
               <span class="leading-relaxed">İstanbul (39 İlçe) • Kocaeli • Tekirdağ • Yalova • Bursa • Kırklareli • Sakarya • Edirne • Düzce • Bolu</span>
             </li>
           </ul>
         </div>
+
       </div>
 
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium text-center sm:text-left">
         <span>&copy; 2026 HİJYONET İlaçlama ve Profesyonel Hijyen Çözümleri. Tüm Hakları Saklıdır.</span>
-        <span>Yetki ve belgelendirme bilgileri talep halinde paylaşılır.</span>
+        <span>Kişisel verileriniz 6698 Sayılı KVKK kapsamında korunmaktadır.</span>
       </div>
+
     </div>
   </footer>
 
   <!-- ========================================================
-       14. SABİT WHATSAPP BUTONU
+       15. SABİT CANLI WHATSAPP BUTONU
        ======================================================== -->
   <a href="https://wa.me/905389898659?text=Merhaba%20H%C4%B0JYONET%2C%20ila%C3%A7lama%20hizmeti%20i%C3%A7in%20teklif%20almak%20istiyorum." 
      target="_blank" rel="noopener noreferrer"
-     class="wa-floating-btn fixed bottom-6 right-6 z-50 flex items-center justify-center w-[52px] h-[52px] sm:w-14 sm:h-14 bg-[#25D366] hover:bg-[#1ebd5b] text-white rounded-full shadow-2xl transition-transform hover:scale-105 active:scale-95 border-2 border-white/60"
+     class="wa-floating-btn fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95 border-2 border-white/80"
      aria-label="WhatsApp'tan Teklif Al">
-    <i data-lucide="message-circle" class="w-6 h-6 sm:w-7 sm:h-7 fill-current"></i>
+    <i data-lucide="message-circle" class="w-7 h-7 sm:w-8 sm:h-8 fill-current"></i>
   </a>
 
   <!-- ========================================================
-       15. JAVASCRIPT: ETKİLEŞİM VE FONKSİYONLAR
+       16. JAVASCRIPT
        ======================================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -1032,7 +1244,7 @@
         lucide.createIcons();
       }
 
-      // 2. Mobil Menü Toggle İşlemi
+      // 2. Mobil Menü Toggle
       const menuBtn = document.getElementById('menuToggleBtn');
       const mobilePanel = document.getElementById('mobileMenuPanel');
       if (menuBtn && mobilePanel) {
@@ -1048,7 +1260,7 @@
         });
       }
 
-      // 3. Öncesi / Sonrası Slider (Before/After)
+      // 3. Öncesi / Sonrası Slider
       const baInput = document.getElementById('baInput');
       const baBeforeWrap = document.getElementById('baBeforeWrap');
       const baLine = document.getElementById('baLine');
@@ -1065,7 +1277,7 @@
         updateSlider(baInput.value);
       }
 
-      // 4. Akordiyon (Sıkça Sorulan Sorular)
+      // 4. Akordiyon (SSS)
       const faqItems = document.querySelectorAll('.faq-item');
       faqItems.forEach(item => {
         const btn = item.querySelector('.faq-btn');
@@ -1078,11 +1290,52 @@
         });
       });
 
-      // 5. Metrekare ve Alan Bazlı Formdan WhatsApp'a Aktarım
+      // 5. KVKK Modalı İşlevleri
+      const kvkkModal = document.getElementById('kvkkModal');
+      const openKvkkModalBtn = document.getElementById('openKvkkModalBtn');
+      const closeKvkkModalBtn = document.getElementById('closeKvkkModalBtn');
+      const confirmKvkkBtn = document.getElementById('confirmKvkkBtn');
+      const kvkkCheckbox = document.getElementById('kvkkConsent');
+
+      const openModal = () => {
+        kvkkModal.classList.remove('hidden');
+        kvkkModal.classList.add('flex');
+      };
+
+      const closeModal = () => {
+        kvkkModal.classList.add('hidden');
+        kvkkModal.classList.remove('flex');
+      };
+
+      if (openKvkkModalBtn && kvkkModal) {
+        openKvkkModalBtn.addEventListener('click', openModal);
+      }
+      if (closeKvkkModalBtn && kvkkModal) {
+        closeKvkkModalBtn.addEventListener('click', closeModal);
+      }
+      if (confirmKvkkBtn && kvkkModal) {
+        confirmKvkkBtn.addEventListener('click', () => {
+          if (kvkkCheckbox) kvkkCheckbox.checked = true;
+          closeModal();
+        });
+      }
+      window.addEventListener('click', (e) => {
+        if (e.target === kvkkModal) {
+          closeModal();
+        }
+      });
+
+      // 6. Metrekare ve Alan Bazlı Formdan WhatsApp'a Aktarım
       const form = document.getElementById('contactForm');
       if (form) {
         form.addEventListener('submit', (e) => {
           e.preventDefault();
+          
+          if (!kvkkCheckbox.checked) {
+            alert('Lütfen kişisel verilerinizin korunması ile ilgili KVKK onay kutusunu işaretleyiniz.');
+            return;
+          }
+
           const name = document.getElementById('formName').value.trim();
           const phone = document.getElementById('formPhone').value.trim();
           const city = document.getElementById('formCity').value;
@@ -1097,9 +1350,9 @@
                             `📍 Bölge/İl: ${encodeURIComponent(city)}%0A` +
                             `🏢 Mekan Türü: ${encodeURIComponent(type)}%0A` +
                             `📐 Alan (m²): ${encodeURIComponent(areaM2)} m²%0A` +
-                            `🎯 İstek: ${encodeURIComponent(service)}%0A` +
+                            `🎯 Talep Edilen Hizmet: ${encodeURIComponent(service)}%0A` +
                             (msg ? `📝 Ek Not: ${encodeURIComponent(msg)}%0A%0A` : `%0A`) +
-                            `Alan bilgilerime göre profesyonel tekliflendirme ve yönlendirme rica ediyorum.`;
+                            `🔒 KVKK Bilgilendirme ve Açık Rıza onayım mevcuttur. Alanıma uygun fiyat teklifi ve randevu planı rica ederim.`;
 
           window.open(`https://wa.me/905389898659?text=${prefilled}`, '_blank');
         });
